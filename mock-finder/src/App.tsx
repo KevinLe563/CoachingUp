@@ -6,9 +6,9 @@ import {
   Routes // Switch changed to routes
 } from 'react-router-dom';
 
-import Users from './User/pages/User';
+import Users from './User/pages/Users';
 import Home from './Home/pages/home';
-import NewInterviewListing from './InterviewListing/pages/NewInterviewListing';
+import NewCoachListing from './Listing/pages/NewCoachListing';
 import logo from './logo.svg';
 import './App.css';
 
@@ -17,7 +17,7 @@ function App() {
     <Router>
       <main>
         <Routes>
-          <Route path='/interview-listing/new' element={<NewInterviewListing />} />
+          <Route path='/coach-listing/new' element={<NewCoachListing />} />
           <Route path='/user' element={<Users />} />
           <Route path='/' element={<Home />} />
           <Route path='*' element={<Navigate to={'/'} />} />

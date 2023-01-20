@@ -1,7 +1,7 @@
 # CoachingUp
-Web application where users can connect with other people who want to do mock interviews. Users can also add people whom they have interviewed with, make friends and connections, etc.
+Web application where coaches and make postings to connect with potential clients on an amazon-like marketplace.
 
-mock-finder Frontend:
+CoachingUp Frontend:
 
 src:
     - Home: home landing page

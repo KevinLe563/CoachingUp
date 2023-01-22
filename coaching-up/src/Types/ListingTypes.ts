@@ -1,6 +1,6 @@
 import { UserInfo } from './UserTypes';
 import { Title, Description } from './StringTypes';
-import { Role, Method } from './EnumTypes';
+import { ListingTags } from './EnumTypes';
 
 interface AllListings {
     user: UserInfo
@@ -10,8 +10,7 @@ interface AllListings {
 interface ListingBody {
     title: String,
     description: String,
-    roles: Role,
-    methods: Method,
+    tags: ListingTags[],
 }
 
 interface ListingInfo {

@@ -1,12 +1,11 @@
-enum Role {
+enum ListingTags {
+    // Roles
     Coach = 'coach',
     Client = 'client',
-}
-
-enum Method {
+    // Methods
     Online = 'online',
     InPerson = 'in-person',
     Hybrid = 'hybrid',
 }
 
-export { Role, Method };
+export { ListingTags };

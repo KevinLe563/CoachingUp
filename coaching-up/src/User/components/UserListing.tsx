@@ -1,24 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './UserListings.css';
 import { ListingInfo } from '../../Types/ListingTypes'
+import { ListingCard } from '../../Shared/components/UIComponents/Card';
 
 function UserListing(props: ListingInfo) {
     return (
-        <li>
-            <div>
-                <h2>
-                    {props.listingBody.title}
-                </h2>
-                <p>
-                    {props.listingBody.description}
-                </p>
-                <div>
-                    {props.listingBody.methods}
-                </div>
-                <div>{props.listingBody.roles}</div>
-            </div>
-        </li>
+        <Link to={`/${props.listing_id}`}>
+            <ListingCard {...props} />
+        </Link>
     )
 }
 

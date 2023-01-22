@@ -18,7 +18,7 @@ function App() {
       <main>
         <Routes>
           <Route path='/coach-listing/new' element={<NewCoachListing />} />
-          <Route path='/user' element={<Users />} />
+          <Route path='/user/listings' element={<Users />} />
           <Route path='/' element={<Home />} />
           <Route path='*' element={<Navigate to={'/'} />} />
         </Routes>

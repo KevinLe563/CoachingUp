@@ -5,13 +5,13 @@ import { UserListings } from '../components/UserListings';
 
 import { UserInfo } from '../../Types/UserTypes';
 import { AllListings, ListingBody } from '../../Types/ListingTypes';
-import { Role, Method } from '../../Types/EnumTypes';
+import { ListingTags } from '../../Types/EnumTypes';
 
 function UserPage() {
     const user1 : UserInfo  = {user_id: 1, user_name: "Max"};
     const description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis volutpat nulla, vitae cursus felis tincidunt in. Suspendisse sed sapien et sem hendrerit porttitor. Cras maximus, velit sit amet vestibulum malesuada, libero massa vestibulum urna, condimentum commodo lacus nibh non lacus. Maecenas tempus suscipit turpis, in varius est fringilla vitae. In vel pretium nisl. Duis sodales tellus id magna dignissim, sed pharetra sapien venenatis. In hac habitasse platea dictumst. Etiam sed tortor sagittis, pulvinar leo at, sollicitudin ante. Mauris bibendum non tortor sed egestas."
-    const listingBody : ListingBody = {title: "title1", description: description, roles: Role.Client, methods: Method.InPerson};
-    const listingBody1 : ListingBody = {title: "title2", description: description, roles: Role.Client, methods: Method.InPerson};
+    const listingBody : ListingBody = {title: "title1", description: description, tags: [ListingTags.Client, ListingTags.InPerson]};
+    const listingBody1 : ListingBody = {title: "title2", description: description, tags: [ListingTags.Hybrid]};
     const listing1 : ListingInfo = {listing_id: 3, listingBody: listingBody};
     const listing2 : ListingInfo = {listing_id: 4, listingBody: listingBody1};
     const LISTINGS : AllListings = {user: user1, listings: [listing1, listing2]}; 

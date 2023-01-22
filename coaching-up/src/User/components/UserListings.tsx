@@ -14,11 +14,11 @@ function UserListings(props : AllListings) {
         )
     }
     return (
-        <ul>
+        <>
             {props.listings.map(listing => (
                 <UserListing {...listing} />
             ))}
-        </ul>
+        </>
     )
 }
 

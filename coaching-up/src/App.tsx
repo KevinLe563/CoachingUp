@@ -6,7 +6,7 @@ import {
   Routes // Switch changed to routes
 } from 'react-router-dom';
 
-import Users from './User/pages/Users';
+import Users from './User/pages/User';
 import Home from './Home/pages/home';
 import NewCoachListing from './Listing/pages/NewCoachListing';
 import logo from './logo.svg';

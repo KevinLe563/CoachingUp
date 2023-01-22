@@ -5,6 +5,7 @@ CoachingUp Frontend:
 
 src:
     - Home: home landing page
-    - User: user themself
+    - User: lists personal posts
     - Network: networking with others
     - Listing: Coaching listings
+    - Profile: Personal Profile

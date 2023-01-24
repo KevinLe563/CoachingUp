@@ -10,7 +10,7 @@ interface AllListings {
 interface ListingBody {
     title: String,
     description: String,
-    tags: ListingTags[],
+    tags: String[],
 }
 
 interface ListingInfo {

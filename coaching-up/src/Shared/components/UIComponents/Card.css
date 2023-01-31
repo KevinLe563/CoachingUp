@@ -3,17 +3,35 @@
 }
 
 .card-img {
-    width: 100%;
-    height: 50%;
-    margin: 5%;
-    object-fit: cover;
+    object-fit: 'cover';
+    width: '10vw';
+    height: '10vh';
+
 }
 
-.card .button {
+.card-text {
+    font-size: 12px;
+}
+
+.card .btn {
     /* TODO: Fix button width */
-    width: 80%;
+    width: 100%;
+    margin-top: 5%;
+}
+
+.button-container {
+    text-align: center;
 }
 
 .badge {
     margin-right: 1%;
 }
+
+.idInfo {
+    justify-content: left;
+}
+
+/* .container {
+    max-width: 960px;
+    margin: 0%;
+} */

@@ -9,20 +9,20 @@ import {
 import Users from './User/pages/User';
 import Home from './Home/pages/home';
 import NewCoachListing from './Listing/pages/NewCoachListing';
+import { MainNavigation } from './Shared/components/Navigation/MainNavigation';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
     <Router>
-      <main>
+      <MainNavigation />
         <Routes>
           <Route path='/coach-listing/new' element={<NewCoachListing />} />
           <Route path='/user/listings' element={<Users />} />
           <Route path='/' element={<Home />} />
           <Route path='*' element={<Navigate to={'/'} />} />
         </Routes>
-      </main>
     </Router>
   )
 }

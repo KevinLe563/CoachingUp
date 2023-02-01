@@ -1,44 +1,49 @@
 import React from 'react';
-
-import './Card.css';
-import logo from './dumbbell.jpg';
 import { Link } from 'react-router-dom';
+
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Table from 'react-bootstrap/Table';
 
 import { ListingInfo } from '../../../Types/ListingTypes';
+import './Card.css';
+import logo from './dumbbell.jpg';
 
 function ListingCard(props: ListingInfo) {
     console.log(props);
     return (
         <Card>
             <Card.Header>
-                <Row md={3}>
-                {/* headers */}
-                <Col>
-                LISTING CREATED
-                </Col>
-                <Col>
-                    PRICE
-                </Col>
-                <Col className='idInfo'>
-                    <>LISTING # {props.listing_id}</>
-                </Col>
-                {/* values */}
-                <Col>
-                    {props.listing_date.toISOString()}
-                </Col>
-                <Col>
-                    <>${props.listingBody.price.price}/{props.listingBody.price.interval}</>
-                </Col>
-                <Col className='idInfo'>
-                    <a>View Listing Details</a>
-                </Col>
-                </Row>
+                <Table bordered={false}>
+                        <tr>
+                            <th>
+                                LISTING CREATED
+                            </th>
+                            <th>
+                                PRICE
+                            </th>
+                            <th>
+                                <>LISTING # {props.listing_id}</>
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                {props.listing_date.toDateString()}    
+                            </td>
+                            <td>
+                                <>${props.listingBody.price.price}/{props.listingBody.price.interval}</>
+                            </td>
+                            <td className="">
+                                {/* TODO: move this to the right, make first 2 columns narrower */}
+                                <a>View Listing Details</a>
+                            </td>
+                        </tr>
+                </Table>
             </Card.Header>
             <Row>
                 <Card.Body>

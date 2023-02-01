@@ -2,26 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Button } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 import './MainNavigation.css';
 
 
 function MainNavigation() {
     return (
-        <>
-            <Button>
-                <span />
-                <span />
-                <span />
-                <span />
-            </Button>
-            <h1>
-                <Link to="/">Find Coaching</Link>
-            </h1>
-            <nav>
-                ...
-            </nav>
-        </>
+        <Navbar>
+            <Container>
+                <Navbar.Brand>Find-Coaching</Navbar.Brand>
+            </Container>
+        </Navbar>
     )
 }
 

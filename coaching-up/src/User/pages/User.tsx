@@ -22,7 +22,7 @@ function UserPage() {
 
     return (
         <div>
-            <h1>Welcome {user1.user_name} to your dashboard!</h1>
+            {/* <h1>Welcome {user1.user_name} to your dashboard!</h1> */}
             <UserListings {...LISTINGS} />
         </div>
     )

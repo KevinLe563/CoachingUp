@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button, Nav, NavDropdown } from 'react-bootstrap';
 import { Navbar } from 'react-bootstrap';
 import { Container } from 'react-bootstrap';
-import Form from 'react-bootstrap/Form';
+import { Form } from 'react-bootstrap';
 
 import './MainNavigation.css';
 
@@ -13,14 +13,15 @@ function MainNavigation() {
     return (
         <Navbar expand="lg">
             <Container fluid>
-                <Navbar.Brand href="">Find Coaching</Navbar.Brand>
+                {/* TODO: ADD LINKS */}
+                <Navbar.Brand as={Link} to="/">Find Coaching</Navbar.Brand>
                 <Navbar.Toggle aria-controls='navbarScroll' />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
                         className="me-auto my-2 my-lg-0"
                         navbarScroll
                     >
-                        <Nav.Link href="">Link</Nav.Link>
+                        <Nav.Link href="/home">Link</Nav.Link>
                         <Nav.Link href="">Link</Nav.Link>
                         <NavDropdown title="Profile" id="navbarScrollingDropdown">
                             <NavDropdown.Item hreef="">1</NavDropdown.Item>

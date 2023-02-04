@@ -12,9 +12,13 @@ import Table from 'react-bootstrap/Table';
 import { ListingInfo } from '../../../Types/ListingTypes';
 import './Card.css';
 import logo from './dumbbell.jpg';
+import { UserInfo } from '../../../Types/UserTypes';
+import { AccountType } from '../../../Types/EnumTypes';
 
-function ListingCard(props: ListingInfo) {
+function ListingCard(props: (ListingInfo & UserInfo)) {
     console.log(props);
+    const isClient : boolean = props.userType === AccountType.Client;
+    const isCoach : boolean = props.userType === AccountType.Coach;
     return (
         <Card>
             <Card.Header>
@@ -74,10 +78,17 @@ function ListingCard(props: ListingInfo) {
                     </Col>
                     <Col sm={2}>
                     <div className="button-container">
-                        <Button>Edit</Button>
-                        {props.listingBody.coach.coachInstagram &&
+                        <Button>Edit {isClient ? "Application" : "Posting"}</Button>
+                        
+                        {isClient && 
+                        <Button>View Posting</Button>}
+
+                        {isCoach &&
+                        props.userType === AccountType.Coach && 
                         <Button>Instagram</Button>}
-                        {props.listingBody.coach.coachWebsite &&
+
+                        {isCoach &&
+                        props.userType === AccountType.Coach && 
                         <Button>Website</Button>}
                     </div>
                     </Col>

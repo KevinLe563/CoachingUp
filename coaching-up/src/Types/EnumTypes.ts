@@ -1,12 +1,14 @@
 // TODO: Separate these into separate enums
 enum ListingTags {
-    // Roles
-    Coach = 'Coach',
-    Client = 'Client',
     // Methods
     Online = 'Online',
     InPerson = 'In-Person',
     Hybrid = 'Hybrid',
+}
+
+enum AccountType {
+    Coach = 'Coach',
+    Client = 'Client',
 }
 
 enum TimeIntervals {
@@ -15,4 +17,4 @@ enum TimeIntervals {
     Year = 'Year',
 }
 
-export { ListingTags, TimeIntervals };
+export { ListingTags, TimeIntervals, AccountType };

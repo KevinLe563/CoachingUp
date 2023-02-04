@@ -1,6 +1,9 @@
+import { AccountType } from "./EnumTypes"
+
 interface UserInfo {
-    user_id: Number,
-    user_name: String,
+    userId: Number,
+    userName: String,
+    userType: AccountType,
 }
 
 export type { UserInfo };

@@ -21,8 +21,8 @@ function MainNavigation() {
                         className="me-auto my-2 my-lg-0"
                         navbarScroll
                     >
-                        <Nav.Link href="/home">Link</Nav.Link>
-                        <Nav.Link href="">Link</Nav.Link>
+                        <Nav.Link as={Link} to="/">Home</Nav.Link>
+                        <Nav.Link as={Link} to="/user/listings">My Postings</Nav.Link>
                         <NavDropdown title="Profile" id="navbarScrollingDropdown">
                             <NavDropdown.Item hreef="">1</NavDropdown.Item>
                             <NavDropdown.Item hreef="">1</NavDropdown.Item>

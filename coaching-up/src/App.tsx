@@ -12,6 +12,7 @@ import NewCoachListing from './Listing/pages/NewCoachListing';
 import { MainNavigation } from './Shared/components/Navigation/MainNavigation';
 import logo from './logo.svg';
 import './App.css';
+import { EditListing } from './User/components/EditListing';
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
       <MainNavigation />
         <Routes>
           <Route path='/coach-listing/new' element={<NewCoachListing />} />
-          <Route path='/user/listings' element={<Users />} />
+          <Route path='/:uid/listings' element={<Users />} />
+          <Route path='/:userId/listings/:listingId/edit' element={<EditListing />} />
           <Route path='/' element={<Home />} />
           <Route path='*' element={<Navigate to={'/'} />} />
         </Routes>

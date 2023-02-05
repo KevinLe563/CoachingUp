@@ -25,7 +25,7 @@ function ListingCard(props: (ListingInfo & UserInfo)) {
                 <Table bordered={false}>
                         <tr>
                             <th>
-                                LISTING CREATED
+                                {isClient ? "SUBMITTED AT" : "POSTING CREATED"}
                             </th>
                             <th>
                                 PRICE
@@ -58,7 +58,7 @@ function ListingCard(props: (ListingInfo & UserInfo)) {
                         <Card.Img alt="listing image" src={logo}/>
                     </Col>
                     <Col sm={8}>
-                        <Link to={`/${props.listing_id}`}>
+                        <Link to={`/${props.userId}/listings/${props.listing_id}/edit`}>
                             <Card.Title>
                                 {props.listingBody.title}
                             </Card.Title>
@@ -78,18 +78,17 @@ function ListingCard(props: (ListingInfo & UserInfo)) {
                     </Col>
                     <Col sm={2}>
                     <div className="button-container">
-                        <Button>Edit {isClient ? "Application" : "Posting"}</Button>
+                        <Link to={`/${props.userId}/listings/${props.listing_id}/edit`}>
+                            <Button>Edit {isClient ? "Application" : "Posting"}</Button>
+                        </Link>
                         
-                        {isClient && 
-                        <Button>View Posting</Button>}
-
-                        {isCoach &&
-                        props.userType === AccountType.Coach && 
+                        {props.listingBody.coach.coachInstagram &&
                         <Button>Instagram</Button>}
 
-                        {isCoach &&
-                        props.userType === AccountType.Coach && 
+                        {props.listingBody.coach.coachWebsite &&
                         <Button>Website</Button>}
+
+                        <Button>Details</Button>
                     </div>
                     </Col>
                     </Row>

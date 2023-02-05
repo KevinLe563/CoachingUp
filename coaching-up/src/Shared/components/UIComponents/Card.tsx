@@ -10,10 +10,13 @@ import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 
 import { ListingInfo } from '../../../Types/ListingTypes';
+import { DetailsModal } from './Modal';
 import './Card.css';
 import logo from './dumbbell.jpg';
 import { UserInfo } from '../../../Types/UserTypes';
 import { AccountType } from '../../../Types/EnumTypes';
+
+// TODO: Make card titles etc. a prop so we can use for 3 different things: applications received(coach), applications submitted(client), Postings created(coach)
 
 function ListingCard(props: (ListingInfo & UserInfo)) {
     console.log(props);
@@ -44,7 +47,8 @@ function ListingCard(props: (ListingInfo & UserInfo)) {
                             </td>
                             <td className="">
                                 {/* TODO: move this to the right, make first 2 columns narrower */}
-                                <a>View Listing Details</a>
+                                {/* Preview: previews what the coach/client will see when they open this lsiting */}
+                                
                             </td>
                         </tr>
                 </Table>
@@ -88,7 +92,7 @@ function ListingCard(props: (ListingInfo & UserInfo)) {
                         {props.listingBody.coach.coachWebsite &&
                         <Button>Website</Button>}
 
-                        <Button>Details</Button>
+                        <DetailsModal {...props}/>
                     </div>
                     </Col>
                     </Row>

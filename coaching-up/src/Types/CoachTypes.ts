@@ -1,7 +1,8 @@
 interface CoachInfo {
-    coachName: String,
-    coachInstagram?: String,
-    coachWebsite?: String,
+    coachFirstName: string,
+    coachLastName: string,
+    coachInstagram?: string,
+    coachWebsite?: string,
 }
 
 export type { CoachInfo };

@@ -7,9 +7,15 @@ import { Container } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 
 import './MainNavigation.css';
+import { UserInfo } from '../../../Types/UserTypes';
+import { AccountType } from '../../../Types/EnumTypes';
 
 
 function MainNavigation() {
+    // TODO: fetch from backend
+    const userType : AccountType = AccountType.Coach;
+
+    const isCoach = userType === AccountType.Coach;
     return (
         <Navbar expand="lg">
             <Container fluid>
@@ -23,6 +29,8 @@ function MainNavigation() {
                     >
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
                         <Nav.Link as={Link} to="/user/listings">My Postings</Nav.Link>
+                        {isCoach &&
+                        <Nav.Link as={Link} to="/uid/listings/new">New Posting</Nav.Link>}
                         <NavDropdown title="Profile" id="navbarScrollingDropdown">
                             <NavDropdown.Item hreef="">1</NavDropdown.Item>
                             <NavDropdown.Item hreef="">1</NavDropdown.Item>

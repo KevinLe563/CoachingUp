@@ -8,18 +8,18 @@ import {
 
 import Users from './User/pages/User';
 import Home from './Home/pages/home';
-import NewCoachListing from './Listing/pages/NewCoachListing';
+import { NewPosting } from './User/pages/NewPosting';
 import { MainNavigation } from './Shared/components/Navigation/MainNavigation';
 import logo from './logo.svg';
 import './App.css';
-import { EditListing } from './User/components/EditListing';
+import { EditListing } from './User/pages/EditListing';
 
 function App() {
   return (
     <Router>
       <MainNavigation />
         <Routes>
-          <Route path='/coach-listing/new' element={<NewCoachListing />} />
+          <Route path='/:userId/listings/new' element={<NewPosting />} />
           <Route path='/:uid/listings' element={<Users />} />
           <Route path='/:userId/listings/:listingId/edit' element={<EditListing />} />
           <Route path='/' element={<Home />} />

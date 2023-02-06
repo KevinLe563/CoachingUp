@@ -1,0 +1,15 @@
+.form-container {
+    margin-top: 10vh;
+}
+
+.form {
+    padding: 2% 5%;
+}
+
+textarea {
+    height: 157px;
+}
+
+.form-group {
+    margin-top: 4vh;
+}

@@ -1,5 +1,5 @@
 // TODO: Separate these into separate enums
-enum ListingTags {
+enum ListingInteractionMethod {
     // Methods
     Online = 'Online',
     InPerson = 'In-Person',
@@ -17,4 +17,4 @@ enum TimeIntervals {
     Year = 'Year',
 }
 
-export { ListingTags, TimeIntervals, AccountType };
+export { ListingInteractionMethod, TimeIntervals, AccountType };

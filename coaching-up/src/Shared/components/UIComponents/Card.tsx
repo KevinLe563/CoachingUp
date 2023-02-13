@@ -22,6 +22,9 @@ function ListingCard(props: (ListingInfo & UserInfo)) {
     console.log(props);
     const isClient : boolean = props.userType === AccountType.Client;
     const isCoach : boolean = props.userType === AccountType.Coach;
+    // TODO: Append all enum tags into a string array to be mapped (make a function or something)
+    const tags : string[] = [];
+
     return (
         <Card>
             <Card.Header>
@@ -71,7 +74,7 @@ function ListingCard(props: (ListingInfo & UserInfo)) {
                             {props.listingBody.description}
                         </Card.Text>
                         {/* TODO: Check if tags is empty */}
-                        {props.listingBody.tags && props.listingBody.tags.map(tag => {
+                        {tags.map(tag => {
                             return (
                                 <Badge pill bg="info">
                                     {tag}

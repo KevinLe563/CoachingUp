@@ -12,7 +12,7 @@ import { NewPosting } from './User/pages/NewPosting';
 import { MainNavigation } from './Shared/components/Navigation/MainNavigation';
 import logo from './logo.svg';
 import './App.css';
-import { EditListing } from './User/pages/EditListing';
+import { UpdatePosting } from './User/pages/UpdatePosting';
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
         <Routes>
           <Route path='/:userId/listings/new' element={<NewPosting />} />
           <Route path='/:uid/listings' element={<Users />} />
-          <Route path='/:userId/listings/:listingId/edit' element={<EditListing />} />
+          <Route path='/:userId/listings/:listingId/edit' element={<UpdatePosting />} />
           <Route path='/' element={<Home />} />
           <Route path='*' element={<Navigate to={'/'} />} />
         </Routes>

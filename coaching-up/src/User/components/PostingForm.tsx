@@ -12,7 +12,14 @@ import './PostingForm.css';
 import { UserInfo } from "../../Types/UserTypes";
 import { CoachInfo } from "../../Types/CoachTypes";
 import { Container, FormControl } from "react-bootstrap";
-import { ListingTags } from "../../Types/EnumTypes";
+import { ListingInteractionMethod } from "../../Types/EnumTypes";
+import { ListingInfo } from "../../Types/ListingTypes";
+import { constants } from "buffer";
+
+interface PostingFormProps  {
+    coachInfo: CoachInfo;
+    listingInfo?: ListingInfo;
+}
 
 const schema = Yup.object().shape({
     title: Yup.string().required(),
@@ -25,17 +32,20 @@ const schema = Yup.object().shape({
 
 function GenerateMethodOptions() {
     return (
-        (Object.keys(ListingTags) as Array<keyof typeof ListingTags>).map((key) => {
+        (Object.keys(ListingInteractionMethod) as Array<keyof typeof ListingInteractionMethod>).map((key) => {
             return (
                 <option>
-                    {key}
+                    {ListingInteractionMethod[key]}
                 </option>
             )
         })
     );
 }
 
-function PostingForm(props: CoachInfo) {
+function PostingForm(props: PostingFormProps) {
+    const coachInfo : CoachInfo = props.coachInfo;
+    const listingInfo : ListingInfo | undefined = props.listingInfo;
+    console.log(listingInfo);
     return (
         <>
             <Container className="form-container border">
@@ -46,11 +56,11 @@ function PostingForm(props: CoachInfo) {
                         <Row>
                             <Col>
                                 <Form.Label>Coach First Name</Form.Label>
-                                <Form.Control placeholder={`${props.coachFirstName}`} disabled />
+                                <Form.Control placeholder={`${coachInfo.coachFirstName}`} disabled />
                             </Col>
                             <Col>
                                 <Form.Label>Coach Last Name</Form.Label>
-                                <Form.Control placeholder={`${props.coachLastName}`} disabled />
+                                <Form.Control placeholder={`${coachInfo.coachLastName}`} disabled />
                             </Col>
                         </Row>
                     </Form.Group>
@@ -63,6 +73,7 @@ function PostingForm(props: CoachInfo) {
                             </Form.Label>
                             <Form.Control 
                                 required
+                                defaultValue={listingInfo ? listingInfo.listingBody.title : ""}
                             />
                             </Col>
                         </Row>
@@ -75,6 +86,7 @@ function PostingForm(props: CoachInfo) {
                                     as="textarea" 
                                     aria-label="Description"
                                     required
+                                    defaultValue={listingInfo ? listingInfo.listingBody.description : ""}
                                 />
                             </Col>
                         </Row>
@@ -87,6 +99,7 @@ function PostingForm(props: CoachInfo) {
                                 <Form.Control 
                                     type="file"
                                     name="file"
+                                    // defaultValue={image?}
                                 />
                             </Col>
                         </Row>
@@ -98,13 +111,17 @@ function PostingForm(props: CoachInfo) {
                                 <Form.Label>
                                     Method
                                 </Form.Label>
-                                <Form.Control as="select">
+                                <Form.Select defaultValue={listingInfo ? listingInfo.listingBody.interactionMethod : ListingInteractionMethod.Online}>
                                     <>
                                         {GenerateMethodOptions()}
                                     </>
-                                </Form.Control>
+                                </Form.Select>
                             </Col>
                         </Row>
+                    </Form.Group>
+
+                    <Form.Group className="form-group">
+                        <button type="submit" className="btn btn-primary">Create</button>
                     </Form.Group>
                 </Form>
             </Container>
@@ -112,4 +129,5 @@ function PostingForm(props: CoachInfo) {
     );
 }
 
+export type { PostingFormProps };
 export { PostingForm };

@@ -1,7 +1,7 @@
 import { UserInfo } from './UserTypes';
 import { CoachInfo } from './CoachTypes';
 import { Title, Description } from './StringTypes';
-import { ListingTags } from './EnumTypes';
+import { ListingInteractionMethod } from './EnumTypes';
 import { PriceInfo } from './PriceTypes';
 
 interface AllListings {
@@ -10,10 +10,10 @@ interface AllListings {
 }
 
 interface ListingBody {
-    title: String,
-    description: String,
+    title: string,
+    description: string,
     coach: CoachInfo,
-    tags: String[],
+    interactionMethod: ListingInteractionMethod
     price: PriceInfo,
 }
 

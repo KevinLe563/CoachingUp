@@ -1,6 +1,6 @@
 import React from "react";
 
-import { PostingForm } from "../components/PostingForm";
+import { PostingForm, PostingFormProps } from "../components/PostingForm";
 import { CoachInfo } from "../../Types/CoachTypes";
 
 /* 
@@ -11,10 +11,11 @@ Only coaches can create new postings
 const coachInfo : CoachInfo = {coachFirstName: "john", coachLastName: "wick"};
 
 function NewPosting() {
+    const postingFormProps : PostingFormProps = {coachInfo: coachInfo}
 
     return (
         <>
-            <PostingForm {...coachInfo} />
+            <PostingForm {...postingFormProps} />
         </>
     );
 }

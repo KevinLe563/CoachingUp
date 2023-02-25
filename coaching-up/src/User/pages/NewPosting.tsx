@@ -20,4 +20,4 @@ function NewPosting() {
     );
 }
 
-export { NewPosting };
+export default NewPosting;

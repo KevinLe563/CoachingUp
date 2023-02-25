@@ -10,7 +10,7 @@ import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 
 import { ListingInfo } from '../../../Types/ListingTypes';
-import { DetailsModal } from './Modal';
+import { DetailsModal, DeletionModal } from './Modal';
 import './Card.css';
 import logo from './dumbbell.jpg';
 import { UserInfo } from '../../../Types/UserTypes';
@@ -95,7 +95,9 @@ function ListingCard(props: (ListingInfo & UserInfo)) {
                         {props.listingBody.coach.coachWebsite &&
                         <Button>Website</Button>}
 
-                        <DetailsModal {...props}/>
+                        <DetailsModal {...props} />
+                        
+                        <DeletionModal {...props} />
                     </div>
                     </Col>
                     </Row>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -40,6 +41,17 @@ function GenerateMethodOptions() {
             )
         })
     );
+}
+
+function GenerateButtonValue() {
+    const location = useLocation();
+    const path = location.pathname.toString().split('/');
+    const func = path[path.length-1];
+    if (func === "edit") {
+        return "Edit";
+    } else {
+        return "Create";
+    }
 }
 
 function PostingForm(props: PostingFormProps) {
@@ -121,7 +133,7 @@ function PostingForm(props: PostingFormProps) {
                     </Form.Group>
 
                     <Form.Group className="form-group">
-                        <button type="submit" className="btn btn-primary">Create</button>
+                        <button type="submit" className="btn btn-primary">{GenerateButtonValue()}</button>
                     </Form.Group>
                 </Form>
             </Container>

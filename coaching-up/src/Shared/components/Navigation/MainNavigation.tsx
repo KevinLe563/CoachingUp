@@ -36,7 +36,7 @@ function MainNavigation() {
                             <NavDropdown.Item hreef="">1</NavDropdown.Item>
                             <NavDropdown.Item hreef="">1</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item hreef="">Sign Out</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/auth">Sign Out</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                     <Form className="d-flex">

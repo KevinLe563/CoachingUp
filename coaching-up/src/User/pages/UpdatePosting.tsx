@@ -18,4 +18,4 @@ function UpdatePosting() {
     )
 }
 
-export { UpdatePosting };
+export default UpdatePosting;

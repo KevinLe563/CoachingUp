@@ -6,13 +6,14 @@ import {
   Routes // Switch changed to routes
 } from 'react-router-dom';
 
-import Users from './User/pages/User';
-import Home from './Home/pages/home';
-import { NewPosting } from './User/pages/NewPosting';
-import { MainNavigation } from './Shared/components/Navigation/MainNavigation';
 import logo from './logo.svg';
 import './App.css';
-import { UpdatePosting } from './User/pages/UpdatePosting';
+import Users from './User/pages/User';
+import Home from './Home/pages/home';
+import NewPosting from './User/pages/NewPosting';
+import UpdatePosting from './User/pages/UpdatePosting';
+import Auth from './User/pages/Auth';
+import { MainNavigation } from './Shared/components/Navigation/MainNavigation';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path='/:userId/listings/new' element={<NewPosting />} />
           <Route path='/:uid/listings' element={<Users />} />
           <Route path='/:userId/listings/:listingId/edit' element={<UpdatePosting />} />
+          <Route path='/auth' element={<Auth />} /> 
           <Route path='/' element={<Home />} />
           <Route path='*' element={<Navigate to={'/'} />} />
         </Routes>

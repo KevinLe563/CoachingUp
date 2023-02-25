@@ -6,6 +6,10 @@ import { ListingInfo } from "../../../Types/ListingTypes";
 
 interface ModalProps {
     show: boolean,
+    header: string,
+    title?: string,
+    description: string,
+    alternateOption?: JSX.Element,
     onHide: () => void,
 }
 
@@ -18,18 +22,21 @@ function CustomModal(props: (ModalProps & ListingInfo)) {
             centered
         >
             <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter">
-                Modal heading
-            </Modal.Title>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    {props.header}
+                </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            <h4>Centered Modal</h4>
-            <p>
-                {props.listingBody.description}
-            </p>
+                {props.title && <h4>{props.title}</h4>}
+                <p>
+                    {props.description}
+                </p>
             </Modal.Body>
             <Modal.Footer>
-            <Button onClick={props.onHide}>Close</Button>
+                <>
+                    <Button onClick={props.onHide}>Close</Button>
+                    {props.alternateOption}
+                </>
             </Modal.Footer>
         </Modal>
     );
@@ -37,7 +44,9 @@ function CustomModal(props: (ModalProps & ListingInfo)) {
 
 function DetailsModal(props: ListingInfo) {
     const [modalShow, setModalShow] = React.useState(false);
-
+    const detailsHeading = "Details"
+    const detailTitle = props.listingBody.title
+    const detailDescription = props.listingBody.description
     return (
         <>
             <Button variant="primary" onClick={() => setModalShow(true)}>
@@ -47,10 +56,36 @@ function DetailsModal(props: ListingInfo) {
             <CustomModal
                 {...props}
                 show={modalShow}
-                onHide={() => setModalShow(false)}    
+                onHide={() => setModalShow(false)}
+                header={detailsHeading}
+                title={detailTitle}
+                description={detailDescription}    
             />
         </>
     )
 }
 
-export { DetailsModal };
+function DeletionModal(props: ListingInfo) {
+    const [modalShow, setModalShow] = React.useState(false);
+    const detailsHeading = "Are you sure?";
+    const detailDescription = "Do you want to proceed? Please note that this action can't be undone.";
+    const deleteButton = <Button variant="danger">Delete</Button>;
+    return (
+        <>
+            <Button variant="danger" onClick={() => setModalShow(true)}>
+                Delete
+            </Button>
+
+            <CustomModal
+                {...props}
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                header={detailsHeading}
+                description={detailDescription}    
+                alternateOption={deleteButton}
+            />
+        </>
+    )
+}
+
+export { DetailsModal, DeletionModal };

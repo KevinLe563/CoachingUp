@@ -1,7 +1,10 @@
 import React from "react";
+import { AuthForm } from "../components/AuthForm";
 
 function Auth() {
-    return <h2>Auth</h2>
+    return (
+        <AuthForm />
+    );
 }
 
 export default Auth;

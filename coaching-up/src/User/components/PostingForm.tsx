@@ -9,7 +9,7 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 
-import './PostingForm.css';
+import './Form.css';
 import { UserInfo } from "../../Types/UserTypes";
 import { CoachInfo } from "../../Types/CoachTypes";
 import { Container, FormControl } from "react-bootstrap";

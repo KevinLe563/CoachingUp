@@ -1,3 +1,11 @@
-/* .form-card {
-    width: 18rem;
+/* .form-container {
+    
 } */
+
+.form-control {
+    margin-bottom: 2.5%;
+}
+
+.form-mode-switch {
+    margin-top: 2.5%;
+}

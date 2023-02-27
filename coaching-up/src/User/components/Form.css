@@ -1,5 +1,7 @@
 .form-container {
     margin-top: 10vh;
+    width: 55rem;
+    border-radius: 5px;
 }
 
 .form {

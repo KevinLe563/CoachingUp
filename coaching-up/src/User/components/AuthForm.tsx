@@ -11,6 +11,7 @@ import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
 
 import './Form.css';
+import './AuthForm.css';
 import { UserInfo } from "../../Types/UserTypes";
 import { CoachInfo } from "../../Types/CoachTypes";
 import { Container, FormControl } from "react-bootstrap";
@@ -19,38 +20,55 @@ import { ListingInfo } from "../../Types/ListingTypes";
 import { constants } from "buffer";
 import CardHeader from "react-bootstrap/esm/CardHeader";
 
+
 const loginModeSwitchString = 'Don\'t have an account? Sign up';
 const signupModeSwitchString = 'Already have an account? Login';
+const loginHeader = 'Login';
+const signupHeader = 'Signup';
 
-function AuthForm() {
-    const [isLoginMode, setIsLoginMode] = useState(true);
+interface AuthProps {
+    isLoginMode: boolean,
+}
+
+function AuthForm(props : AuthProps) {
+    const [isLoginMode, setIsLoginMode] = useState(props.isLoginMode);
     const switchAuthMode = () => {
         setIsLoginMode(prevMode => !prevMode);
     };
-
+    console.log(props.isLoginMode);
     // add form validations
     return (
         <>
             <Container className="form-container border">
                 <Form className="form">
-                    <h1>Login Required</h1>
+                    <h1>{isLoginMode ? loginHeader : signupHeader}</h1>
 
                     <Form.Group className="form-group">
-                        <Form.Label>First Name</Form.Label>
-                        <Form.Control required />
-                        <Form.Label>Last Name</Form.Label>
-                        <Form.Control required />
+                        {!isLoginMode &&
+                            <>
+                            <Form.Label>First Name</Form.Label>
+                            <Form.Control required />
+                            <Form.Label>Last Name</Form.Label>
+                            <Form.Control required />
+                            </>
+                        }
+
+
                         <Form.Label>Username</Form.Label>
                         <Form.Control required />
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control required />
+                        {!isLoginMode &&
+                            <>
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control required />
+                            </>
+                        }
                         <Form.Label>Password</Form.Label>
                         <Form.Control required />
                     </Form.Group>
                     <Form.Group className="form-group">
                         <button type="submit" className="btn btn-primary">{isLoginMode ? 'Login' : 'Signup'}</button>
                     </Form.Group>
-                    <a href="#" onClick={switchAuthMode}>{isLoginMode ? loginModeSwitchString : signupModeSwitchString}</a>
+                    <a className="form-mode-switch" href="#" onClick={switchAuthMode}>{isLoginMode ? loginModeSwitchString : signupModeSwitchString}</a>
                 </Form>
             </Container>
         </>

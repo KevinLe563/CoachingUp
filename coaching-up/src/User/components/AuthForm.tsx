@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -19,6 +19,7 @@ import { ListingInteractionMethod } from "../../Types/EnumTypes";
 import { ListingInfo } from "../../Types/ListingTypes";
 import { constants } from "buffer";
 import CardHeader from "react-bootstrap/esm/CardHeader";
+import { AuthContext } from "../../Shared/context/AuthContext";
 
 
 const loginModeSwitchString = 'Don\'t have an account? Sign up';
@@ -35,12 +36,19 @@ function AuthForm(props : AuthProps) {
     const switchAuthMode = () => {
         setIsLoginMode(prevMode => !prevMode);
     };
-    console.log(props.isLoginMode);
-    // add form validations
+
+    const auth = useContext(AuthContext);
+    const authSubmitHandler = () => {
+        auth.login();
+        console.log(auth.isLoggedIn);
+      };
+
+
+    // TODO: add form validations
     return (
         <>
             <Container className="form-container border">
-                <Form className="form">
+                <Form className="form" onSubmit={authSubmitHandler}>
                     <h1>{isLoginMode ? loginHeader : signupHeader}</h1>
 
                     <Form.Group className="form-group">

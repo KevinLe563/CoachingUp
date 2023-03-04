@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-
 import { Button, Nav, NavDropdown } from 'react-bootstrap';
 import { Navbar } from 'react-bootstrap';
 import { Container } from 'react-bootstrap';
@@ -9,13 +8,14 @@ import { Form } from 'react-bootstrap';
 import './MainNavigation.css';
 import { UserInfo } from '../../../Types/UserTypes';
 import { AccountType } from '../../../Types/EnumTypes';
-
+import { AuthContext } from '../../context/AuthContext';
 
 function MainNavigation() {
-    // TODO: fetch from backend
+    // TODO: fetch from backend or use a context
     const userType : AccountType = AccountType.Coach;
-
     const isCoach = userType === AccountType.Coach;
+
+    const auth = useContext(AuthContext);
     return (
         <Navbar expand="lg">
             <Container fluid>
@@ -28,18 +28,23 @@ function MainNavigation() {
                         navbarScroll
                     >
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
-                        <Nav.Link as={Link} to="/user/listings">My Postings</Nav.Link>
-                        {isCoach &&
-                        <Nav.Link as={Link} to="/uid/listings/new">New Posting</Nav.Link>}
-                        <NavDropdown title="Profile" id="navbarScrollingDropdown">
-                            <NavDropdown.Item hreef="">1</NavDropdown.Item>
-                            <NavDropdown.Item hreef="">1</NavDropdown.Item>
-                            <NavDropdown.Item hreef="">1</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item as={Link} to="/auth">Sign Out</NavDropdown.Item>
-                        </NavDropdown>
+                        {auth.isLoggedIn &&
+                            <>
+                            <Nav.Link as={Link} to="/user/listings">My Postings</Nav.Link>
+                            {isCoach &&
+                            <Nav.Link as={Link} to="/uid/listings/new">New Posting</Nav.Link>}
+                            <NavDropdown title="Profile" id="navbarScrollingDropdown">
+                                <NavDropdown.Item hreef="">1</NavDropdown.Item>
+                                <NavDropdown.Item hreef="">1</NavDropdown.Item>
+                                <NavDropdown.Item hreef="">1</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item onClick={auth.logout}>Sign Out</NavDropdown.Item>
+                            </NavDropdown>
+                            </>
+                        }
+
                     </Nav>
-                    <Form className="d-flex">
+                    {auth.isLoggedIn && <Form className="d-flex">
                         <Form.Control 
                             type="search"
                             placeholder="search"
@@ -47,7 +52,14 @@ function MainNavigation() {
                             aria-label="Search"
                         />
                         <Button variant="outline-success">Search</Button>
-                    </Form>
+                    </Form>}
+                    <div className='d-flex'>
+                    {!auth.isLoggedIn &&
+                        <Nav.Link as={Link} to="/auth">
+                            <Button>Sign In</Button>
+                        </Nav.Link>
+                    }
+                    </div>
                 </Navbar.Collapse>
             </Container>
         </Navbar>

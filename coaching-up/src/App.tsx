@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -14,20 +14,48 @@ import NewPosting from './User/pages/NewPosting';
 import UpdatePosting from './User/pages/UpdatePosting';
 import Auth from './User/pages/Auth';
 import { MainNavigation } from './Shared/components/Navigation/MainNavigation';
+import { AuthContext } from './Shared/context/AuthContext';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+  // cache app function between re-renders based on dependancies to remove infinite loops
+  const login = useCallback(() => {
+    setIsLoggedIn(true);
+  }, []);
+
+  const logout = useCallback(() => {
+    setIsLoggedIn(false);
+  }, []);
+
+  let routes;
+  if (isLoggedIn) {
+    routes = (
+      <Routes>
+        <Route path='/:userId/listings/new' element={<NewPosting />} />
+        <Route path='/:uid/listings' element={<Users />} />
+        <Route path='/:userId/listings/:listingId/edit' element={<UpdatePosting />} />
+        <Route path='/' element={<Home />} />
+        <Route path='*' element={<Navigate to={'/'} />} />
+      </Routes>
+    );
+  } else {
+    routes = (
+      <Routes>
+        <Route path='/auth' element={<Auth />} /> 
+        <Route path='/' element={<Home />} />
+        <Route path='*' element={<Navigate to={'/auth'} />} />
+      </Routes>
+    );
+  }
+
   return (
-    <Router>
-      <MainNavigation />
-        <Routes>
-          <Route path='/:userId/listings/new' element={<NewPosting />} />
-          <Route path='/:uid/listings' element={<Users />} />
-          <Route path='/:userId/listings/:listingId/edit' element={<UpdatePosting />} />
-          <Route path='/auth' element={<Auth />} /> 
-          <Route path='/' element={<Home />} />
-          <Route path='*' element={<Navigate to={'/'} />} />
-        </Routes>
-    </Router>
+    <AuthContext.Provider value={{isLoggedIn: isLoggedIn, login: login, logout: logout}}>
+      <Router>
+        <MainNavigation />
+          {routes}
+      </Router>
+    </AuthContext.Provider>
   )
 }
 

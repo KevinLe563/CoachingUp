@@ -1,11 +1,9 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express, Request, Response, Router } from 'express';
+
+import listingRouter from './routes/listing-routes';
 
 const app: Express = express();
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server AND NODEMON WORKS');
-});
+app.use('/api/listings', listingRouter)
 
-app.listen(5000, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:5000`);
-});
+app.listen(5000);

@@ -3,11 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "nodemonConfig": {
+    "watch": [
+      "dist/"
+    ],
+    "exec": "node -r tsconfig-paths/register -r ts-node/register ./dist/coaching-up-backend/app.js",
+    "ext": "ts, js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
-    "start": "node dist/coaching-up-backend/app.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/coaching-up-backend/app.js\""
+    "start": "nodemon",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon\""
   },
   "keywords": [],
   "author": "",
@@ -20,6 +27,8 @@
     "@types/node": "^18.14.6",
     "concurrently": "^7.6.0",
     "nodemon": "^2.0.21",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.2",
     "typescript": "^4.9.5"
   }
 }

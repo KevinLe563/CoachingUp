@@ -9,7 +9,11 @@ listingRouter.get('/:lid', (req, res, next) => {
     const listing = LISTINGS.listings.find(l => {
         return l.listing_id === listingId;
     })
-    res.json(listing);
+    res.json({listing});
+});
+
+listingRouter.get('', (req, res, next) => {
+
 });
 
 export default listingRouter;

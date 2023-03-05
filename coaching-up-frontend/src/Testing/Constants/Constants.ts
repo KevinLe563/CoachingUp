@@ -14,4 +14,4 @@ const listing1 : ListingInfo = {listing_id: 3, listing_date: new Date(), listing
 const listing2 : ListingInfo = {listing_id: 4, listing_date: new Date(), listingBody: listingBody1 };
 const LISTINGS : AllListings = {user: user1, listings: [listing1, listing2]}; 
 
-export { LISTINGS, coach };
+export { LISTINGS, coach, user1 };

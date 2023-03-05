@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
-    "start": "node dist/app.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/app.js\""
+    "start": "node dist/coaching-up-backend/app.js",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/coaching-up-backend/app.js\""
   },
   "keywords": [],
   "author": "",

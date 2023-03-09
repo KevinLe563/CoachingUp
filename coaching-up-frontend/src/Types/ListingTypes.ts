@@ -18,8 +18,8 @@ interface ListingBody {
 }
 
 interface ListingInfo {
-    listing_id: Number,
-    listing_date: Date,
+    listingId: string,
+    listingDate: Date,
     listingBody: ListingBody,
 }
 

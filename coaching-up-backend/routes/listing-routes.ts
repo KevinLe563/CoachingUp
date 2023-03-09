@@ -1,23 +1,13 @@
 import express, { Express, Request, Response, Router } from 'express';
 
+import { getListingById, createListing } from 'controllers/listing-controller';
 import { user1, LISTINGS } from '@frontend/Testing/Constants/Constants';
 
 const listingRouter: Router = express.Router();
 
-listingRouter.get('/:lid', (req, res, next) => {
-    const listingId = Number(req.params.lid);
-    const listing = LISTINGS.listings.find(l => {
-        return l.listing_id === listingId;
-    })
+listingRouter.get('/:lid', getListingById);
 
-    if (!listing) {
-        const error: any = new Error('Listing not found');
-        error.code = 404;
-        return next(error);
-    } 
-    
-    return res.json({listing});
-});
+listingRouter.post('/', createListing);
 
 export default listingRouter;
 

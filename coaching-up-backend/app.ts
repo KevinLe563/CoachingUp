@@ -1,8 +1,11 @@
 import express, { Express, Request, Response, Router, ErrorRequestHandler, NextFunction } from 'express';
+import bodyParser from "body-parser";
 
 import listingRouter from './routes/listing-routes';
 
 const app: Express = express();
+
+app.use(bodyParser.json());
 
 app.use('/api/listings', listingRouter)
 

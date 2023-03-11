@@ -2,6 +2,7 @@ import { NextFunction } from "express";
 import bodyParser from "body-parser";
 import {v4} from "uuid";
 
+import { HttpError } from "models/http-error";
 import { user1, LISTINGS, coach, priceInfo } from '@frontend/Testing/Constants/Constants';
 import { ListingInfo, ListingBody } from "@frontend/Types/ListingTypes";
 import { ListingInteractionMethod } from "@frontend/Types/EnumTypes";
@@ -13,8 +14,7 @@ function getListingById(req: any, res: any, next: NextFunction) {
     })
 
     if (!listing) {
-        const error: any = new Error('Listing not found');
-        error.code = 404;
+        const error : HttpError = new HttpError('Listing not found', 404);
         return next(error);
     } 
     
@@ -48,4 +48,36 @@ function createListing(req: any, res: any, next: NextFunction) {
     res.status(201).json({listing: listingInfo});
 }
 
-export { getListingById, createListing }; 
+function updateListingById(req: any, res: any, next: NextFunction) {
+    const { title, description } = req.body;
+    const listingId = req.params.lid;
+
+    const foundListing : ListingInfo | undefined = LISTINGS.listings.find(l => l.listingId === listingId);
+
+    if (!foundListing) {
+        const error : HttpError = new HttpError('Listing not found', 404);
+        return next(error);
+    }
+    
+    const updatedListing = {...foundListing};
+    const listingIndex = LISTINGS.listings.findIndex(l => l.listingId === listingId);
+    updatedListing.listingBody.title = title;
+    updatedListing.listingBody.description = description;
+
+    LISTINGS.listings[listingIndex] = updatedListing;
+    res.status(200).json({listing: updatedListing })
+}
+
+function deleteListingById(req: any, res: any, next: NextFunction) {
+    const listingId = req.params.lid;
+    if (!LISTINGS.listings.find(l => l.listingId === listingId)) {
+        const error : HttpError = new HttpError('Listing not found', 404);
+        return next(error);
+    }
+
+    LISTINGS.listings = LISTINGS.listings.filter(l => l.listingId !== l.listingId);
+    res.status(200).json({message: 'Deleted listing'});
+
+}
+
+export { getListingById, createListing, updateListingById, deleteListingById }; 

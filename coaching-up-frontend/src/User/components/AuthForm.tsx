@@ -16,7 +16,7 @@ import { UserInfo } from "../../Types/UserTypes";
 import { CoachInfo } from "../../Types/CoachTypes";
 import { Container, FormControl } from "react-bootstrap";
 import { ListingInteractionMethod } from "../../Types/EnumTypes";
-import { ListingInfo } from "../../Types/ListingTypes";
+import { Listing } from "../../Types/ListingTypes";
 import { constants } from "buffer";
 import CardHeader from "react-bootstrap/esm/CardHeader";
 import { AuthContext } from "../../Shared/context/AuthContext";

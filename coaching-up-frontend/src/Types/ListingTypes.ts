@@ -4,11 +4,6 @@ import { Title, Description } from './StringTypes';
 import { ListingInteractionMethod } from './EnumTypes';
 import { PriceInfo } from './PriceTypes';
 
-interface AllListings {
-    user: UserInfo
-    listings: ListingInfo[]
-}
-
 interface ListingBody {
     title: string,
     description: string,
@@ -17,10 +12,11 @@ interface ListingBody {
     price: PriceInfo,
 }
 
-interface ListingInfo {
+interface Listing {
     listingId: string,
     listingDate: Date,
     listingBody: ListingBody,
+    userId: string,
 }
 
-export type { AllListings, ListingInfo, ListingBody };
+export type { Listing, ListingBody };

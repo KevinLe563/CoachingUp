@@ -1,12 +1,12 @@
 import React from "react";
 import { useParams } from 'react-router-dom';
-import { LISTINGS, coach } from "../../Testing/Constants/Constants";
-import { ListingInfo } from "../../Types/ListingTypes";
+import { listings, coach } from "../../Testing/Constants/Constants";
+import { Listing } from "../../Types/ListingTypes";
 import { PostingForm, PostingFormProps } from "../components/PostingForm";
 
 function UpdatePosting() {
-    const listingId : Number = Number(useParams().listingId);
-    const identifiedListing : (ListingInfo | undefined) = LISTINGS.listings.find(listing => listing.listing_id === listingId);
+    const listingId : string | undefined = useParams().listingId;
+    const identifiedListing : (Listing | undefined) = listings.find(listing => listing.listingId === listingId);
     if (!identifiedListing) {
         return <h2>404 Not Found</h2>
     }

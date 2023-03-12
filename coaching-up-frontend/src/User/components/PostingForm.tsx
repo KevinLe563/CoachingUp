@@ -14,12 +14,12 @@ import { UserInfo } from "../../Types/UserTypes";
 import { CoachInfo } from "../../Types/CoachTypes";
 import { Container, FormControl } from "react-bootstrap";
 import { ListingInteractionMethod } from "../../Types/EnumTypes";
-import { ListingInfo } from "../../Types/ListingTypes";
+import { Listing } from "../../Types/ListingTypes";
 import { constants } from "buffer";
 
 interface PostingFormProps  {
     coachInfo: CoachInfo;
-    listingInfo?: ListingInfo;
+    listingInfo?: Listing;
 }
 
 const schema = Yup.object().shape({
@@ -56,7 +56,7 @@ function GenerateButtonValue() {
 
 function PostingForm(props: PostingFormProps) {
     const coachInfo : CoachInfo = props.coachInfo;
-    const listingInfo : ListingInfo | undefined = props.listingInfo;
+    const listingInfo : Listing | undefined = props.listingInfo;
     console.log(listingInfo);
     return (
         <>

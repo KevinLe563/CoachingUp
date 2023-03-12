@@ -9,7 +9,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 
-import { ListingInfo } from '../../../Types/ListingTypes';
+import { Listing } from '../../../Types/ListingTypes';
 import { DetailsModal, DeletionModal } from './Modal';
 import './Card.css';
 import logo from './dumbbell.jpg';
@@ -17,8 +17,8 @@ import { UserInfo } from '../../../Types/UserTypes';
 import { AccountType } from '../../../Types/EnumTypes';
 
 // TODO: Make card titles etc. a prop so we can use for 3 different things: applications received(coach), applications submitted(client), Postings created(coach)
-
-function ListingCard(props: (ListingInfo & UserInfo)) {
+// TODO: make userinfo come from global context
+function ListingCard(props: (Listing & UserInfo)) {
     console.log(props);
     const isClient : boolean = props.userType === AccountType.Client;
     const isCoach : boolean = props.userType === AccountType.Coach;
@@ -37,13 +37,13 @@ function ListingCard(props: (ListingInfo & UserInfo)) {
                                 PRICE
                             </th>
                             <th>
-                                <>LISTING # {props.listing_id}</>
+                                <>LISTING # {props.listingId}</>
                             </th>
                         </tr>
 
                         <tr>
                             <td>
-                                {props.listing_date.toDateString()}    
+                                {props.listingDate.toDateString()}    
                             </td>
                             <td>
                                 <>${props.listingBody.price.price}/{props.listingBody.price.interval}</>
@@ -65,7 +65,7 @@ function ListingCard(props: (ListingInfo & UserInfo)) {
                         <Card.Img alt="listing image" src={logo}/>
                     </Col>
                     <Col sm={8}>
-                        <Link to={`/${props.userId}/listings/${props.listing_id}/edit`}>
+                        <Link to={`/${props.userId}/listings/${props.listingId}/edit`}>
                             <Card.Title>
                                 {props.listingBody.title}
                             </Card.Title>
@@ -85,7 +85,7 @@ function ListingCard(props: (ListingInfo & UserInfo)) {
                     </Col>
                     <Col sm={2}>
                     <div className="button-container">
-                        <Link to={`/${props.userId}/listings/${props.listing_id}/edit`}>
+                        <Link to={`/${props.userId}/listings/${props.listingId}/edit`}>
                             <Button>Edit {isClient ? "Application" : "Posting"}</Button>
                         </Link>
                         

@@ -3,11 +3,13 @@ import React from 'react';
 import { UserListing } from './UserListing';
 import './UserListings.css';
 
-import { AllListings } from '../../Types/ListingTypes';
+import { Listing } from '../../Types/ListingTypes';
 import { userInfo } from 'os';
+import { listings, user1 } from '../../Testing/Constants/Constants';
 
-function UserListings(props : AllListings) {
-    if (props.listings.length === 0) {
+function UserListings(props : Listing[]) {
+    const userListings = Object.values(props).filter(l => l.userId === user1.userId);
+    if (userListings.length === 0) {
         return (
             <h2>
                 You currently have no open listings. Click <a>here</a> to create some!
@@ -16,8 +18,8 @@ function UserListings(props : AllListings) {
     }
     return (
         <>
-            {props.listings.map(listing => (
-                <UserListing {...listing} {...props.user} />
+            {userListings.map(listing => (
+                <UserListing {...listing} {...user1} />
             ))}
         </>
     )

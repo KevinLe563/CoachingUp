@@ -2,7 +2,7 @@ import React from "react";
 
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import { ListingInfo } from "../../../Types/ListingTypes";
+import { Listing } from "../../../Types/ListingTypes";
 
 interface ModalProps {
     show: boolean,
@@ -13,7 +13,7 @@ interface ModalProps {
     onHide: () => void,
 }
 
-function CustomModal(props: (ModalProps & ListingInfo)) {
+function CustomModal(props: (ModalProps & Listing)) {
     return (
         <Modal
             {...props}
@@ -42,7 +42,7 @@ function CustomModal(props: (ModalProps & ListingInfo)) {
     );
 }
 
-function DetailsModal(props: ListingInfo) {
+function DetailsModal(props: Listing) {
     const [modalShow, setModalShow] = React.useState(false);
     const detailsHeading = "Details"
     const detailTitle = props.listingBody.title
@@ -65,7 +65,7 @@ function DetailsModal(props: ListingInfo) {
     )
 }
 
-function DeletionModal(props: ListingInfo) {
+function DeletionModal(props: Listing) {
     const [modalShow, setModalShow] = React.useState(false);
     const detailsHeading = "Are you sure?";
     const detailDescription = "Do you want to proceed? Please note that this action can't be undone.";

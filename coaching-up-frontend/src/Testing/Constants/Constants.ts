@@ -4,7 +4,7 @@ import { AccountType, ListingInteractionMethod, TimeIntervals } from '../../Type
 import { CoachInfo } from '../../Types/CoachTypes';
 import { PriceInfo } from '../../Types/PriceTypes';
 
-const user1 : UserInfo  = {userId: "1", userName: "Max", userType: AccountType.Client};
+const user1 : UserInfo  = {userId: "1", username: "Max", userType: AccountType.Client, userEmail: "test@gmail.com", userPassword: "password1"};
 const users : UserInfo[] = [user1];
 const coach : CoachInfo = {coachFirstName: "john", coachLastName: "wick"};
 const priceInfo : PriceInfo = {price: 100.4, interval: TimeIntervals.Session};

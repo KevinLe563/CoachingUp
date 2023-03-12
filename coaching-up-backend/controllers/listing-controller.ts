@@ -7,7 +7,7 @@ import { user1, listings as listingsConstant, coach, priceInfo } from '@frontend
 import { Listing, ListingBody } from "@frontend/Types/ListingTypes";
 import { ListingInteractionMethod } from "@frontend/Types/EnumTypes";
 
-let listings = {...listingsConstant}
+let listings : Listing[] = listingsConstant;
 
 function getListingById(req: any, res: any, next: NextFunction) {
     const listingId = String(req.params.lid);
@@ -21,6 +21,18 @@ function getListingById(req: any, res: any, next: NextFunction) {
     } 
     
     return res.json({listing});
+}
+
+function getAllListingsByUserId(req: any, res: any, next: NextFunction) {
+    const userId = req.params.uid;
+
+    const userListings : Listing[] = listings.filter(l => l.userId === userId);
+    if (!userListings || userListings.length === 0) {
+        const error = new HttpError('Could not find any listings for the specified user.', 404);
+        return next(error);
+    }
+
+    return res.json({userListings});
 }
 
 function createListing(req: any, res: any, next: NextFunction) {
@@ -43,7 +55,8 @@ function createListing(req: any, res: any, next: NextFunction) {
     const listingInfo : Listing = {
         listingId,
         listingDate,
-        listingBody
+        listingBody,
+        userId: user1.userId,
     }
 
     listings.push(listingInfo);
@@ -82,4 +95,4 @@ function deleteListingById(req: any, res: any, next: NextFunction) {
 
 }
 
-export { getListingById, createListing, updateListingById, deleteListingById }; 
+export { getListingById, getAllListingsByUserId, createListing, updateListingById, deleteListingById }; 

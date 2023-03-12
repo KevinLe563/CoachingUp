@@ -2,7 +2,7 @@ import { AccountType } from "./EnumTypes"
 
 interface UserInfo {
     userId: string,
-    userName: string,
+    username: string,
     userType: AccountType,
 }
 

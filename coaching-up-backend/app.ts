@@ -9,15 +9,19 @@ const app: Express = express();
 
 app.use(bodyParser.json());
 
+/* listing routes */
 app.use('/api/listings', listingRouter);
 
+/* user routes */
 app.use('/api/user', userRouter);
 
+/* Default invalid url response */
 app.use((req, res, next) => {
     const error : HttpError = new HttpError('Page not found.', 404);
     return next(error);
 });
 
+/* error handler */
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
     if (res.headersSent) {
         return next(error);

@@ -1,4 +1,5 @@
 import { NextFunction } from "express";
+import { validationResult } from "express-validator/src/validation-result";
 import bodyParser from "body-parser";
 import {v4} from "uuid";
 
@@ -36,6 +37,10 @@ function getAllListingsByUserId(req: any, res: any, next: NextFunction) {
 }
 
 function createListing(req: any, res: any, next: NextFunction) {
+    const validationErros = validationResult(req);
+    if (!validationErros.isEmpty()) {
+        throw new HttpError("Invalid input, please check your data.", 422);
+    }
     const { title, description } = req.body;
     const listingBody : ListingBody = {
         title,
@@ -64,6 +69,10 @@ function createListing(req: any, res: any, next: NextFunction) {
 }
 
 function updateListingById(req: any, res: any, next: NextFunction) {
+    const validationErros = validationResult(req);
+    if (!validationErros.isEmpty()) {
+        throw new HttpError("Invalid input, please check your data.", 422);
+    }
     const { title, description } = req.body;
     const listingId = req.params.lid;
 

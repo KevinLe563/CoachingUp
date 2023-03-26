@@ -5,7 +5,7 @@ import {v4} from "uuid";
 
 import { HttpError } from "models/http-error";
 import { user1, listings as listingsConstant, coach, priceInfo } from '@frontend/Testing/Constants/Constants';
-import { Listing, ListingBody } from "@frontend/Types/ListingTypes";
+import { Listing } from "@frontend/Types/ListingTypes";
 import { ListingInteractionMethod } from "@frontend/Types/EnumTypes";
 
 let listings : Listing[] = listingsConstant;

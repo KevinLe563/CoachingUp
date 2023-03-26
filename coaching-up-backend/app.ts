@@ -1,4 +1,5 @@
 import express, { Express, Request, Response, Router, ErrorRequestHandler, NextFunction } from 'express';
+import mongoose from 'mongoose';
 import bodyParser from "body-parser";
 
 import { HttpError } from 'models/http-error';
@@ -6,6 +7,8 @@ import listingRouter from './routes/listing-routes';
 import userRouter from 'routes/user-routes';
 
 const app: Express = express();
+// TODO: configure real password
+const dbConnectionString = 'mongodb+srv://admin:admin563@cluster0.yzxviui.mongodb.net/listings?retryWrites=true&w=majority';
 
 app.use(bodyParser.json());
 
@@ -31,4 +34,10 @@ app.use((error: any, req: Request, res: Response, next: NextFunction) => {
     res.json({message: error.message || "An unknown error occured."});
 });
 
-app.listen(5000);
+mongoose.connect(
+    dbConnectionString
+).then(() => {
+    app.listen(5000);
+}).catch((error) => {
+    console.log(error);
+});

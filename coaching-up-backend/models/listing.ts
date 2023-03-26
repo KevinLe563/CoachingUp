@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
 
 import { ListingInteractionMethod, TimeIntervals } from "@frontend/Types/EnumTypes";
+import { Listing } from '@frontend/Types/ListingTypes';
 
 const Schema = mongoose.Schema;
 
 const listingSchema = new Schema({
-    listingDate: { type: Date, required: true },
+    creationDate: { type: Date, required: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
     coachId: { type: String, required: true },
@@ -17,4 +18,5 @@ const listingSchema = new Schema({
     userId: { type: String, required: true}
 });
 
-module.exports = mongoose.model('Listing', listingSchema);
+const ListingModel = mongoose.model<Listing>('ListingModel', listingSchema);
+export default ListingModel;

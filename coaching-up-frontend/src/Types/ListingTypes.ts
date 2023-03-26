@@ -6,12 +6,12 @@ import { PriceInfo } from './PriceTypes';
 
 interface Listing {
     listingId: string,
-    listingDate: Date,
+    creationDate: Date,
     title: string,
     description: string,
     coachId: string,
     interactionMethod: ListingInteractionMethod
-    price: PriceInfo,
+    priceInfo: PriceInfo,
     userId: string,
 }
 

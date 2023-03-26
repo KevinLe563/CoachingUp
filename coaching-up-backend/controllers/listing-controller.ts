@@ -4,9 +4,11 @@ import bodyParser from "body-parser";
 import {v4} from "uuid";
 
 import { HttpError } from "models/http-error";
+import ListingModel from "models/listing";
 import { user1, listings as listingsConstant, coach, priceInfo } from '@frontend/Testing/Constants/Constants';
 import { Listing } from "@frontend/Types/ListingTypes";
-import { ListingInteractionMethod } from "@frontend/Types/EnumTypes";
+import { PriceInfo } from "@frontend/Types/PriceTypes";
+import { ListingInteractionMethod, TimeIntervals } from "@frontend/Types/EnumTypes";
 
 let listings : Listing[] = listingsConstant;
 
@@ -36,36 +38,39 @@ function getAllListingsByUserId(req: any, res: any, next: NextFunction) {
     return res.json({userListings});
 }
 
-function createListing(req: any, res: any, next: NextFunction) {
+async function createListing(req: any, res: any, next: NextFunction) {
     const validationErros = validationResult(req);
     if (!validationErros.isEmpty()) {
         throw new HttpError("Invalid input, please check your data.", 422);
     }
-    const { title, description } = req.body;
-    const listingBody : ListingBody = {
+
+    const {
+      title,
+      description,
+      coachId,
+      interactionMethod,
+      price,
+      timeInterval,
+      userId,
+    } = req.body;
+    const priceInfo : PriceInfo = {price, interval: timeInterval};
+    const createdListing = new ListingModel({
+        creationDate: new Date(),
         title,
         description,
-        interactionMethod: ListingInteractionMethod.InPerson,
-        coach,
-        price: priceInfo
-        // interactionMethod,
-        // coach,
-        // price,
+        coachId,
+        interactionMethod,
+        priceInfo,
+        userId
+    });
+
+    try {
+        await createdListing.save();
+    } catch (error) {
+        return next(new HttpError('Listing creation failed.', 500));
     }
 
-    const listingId = v4();
-    console.log(listingId);
-    const listingDate = new Date();
-
-    const listingInfo : Listing = {
-        listingId,
-        listingDate,
-        listingBody,
-        userId: user1.userId,
-    }
-
-    listings.push(listingInfo);
-    res.status(201).json({listing: listingInfo});
+    res.status(201).json({listing: createdListing});
 }
 
 function updateListingById(req: any, res: any, next: NextFunction) {

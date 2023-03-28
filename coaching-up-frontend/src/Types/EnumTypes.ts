@@ -1,20 +1,20 @@
 // TODO: Separate these into separate enums
 enum ListingInteractionMethod {
     // Methods
-    Online = 'Online',
-    InPerson = 'In-Person',
-    Hybrid = 'Hybrid',
+    ONLINE = 'Online',
+    IN_PERSON = 'In-Person',
+    HYBRID = 'Hybrid',
 }
 
 enum AccountType {
-    Coach = 'Coach',
-    Client = 'Client',
+    COACH = 'Coach',
+    CLIENT = 'Client',
 }
 
 enum TimeIntervals {
-    Session = 'Session',
-    Month = 'Month',
-    Year = 'Year',
+    SESSION = 'Session',
+    MONTH = 'Month',
+    YEAR = 'Year',
 }
 
 export { ListingInteractionMethod, TimeIntervals, AccountType };

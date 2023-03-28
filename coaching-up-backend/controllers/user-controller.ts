@@ -49,7 +49,7 @@ function signupUser(req: any, res: any, next: NextFunction) {
         username,
         userEmail: email,
         userPassword: password,
-        userType: AccountType.Client,
+        userType: AccountType.CLIENT,
     }
 
     users.push(createdUser);

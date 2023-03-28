@@ -12,30 +12,35 @@ import { ListingInteractionMethod, TimeIntervals } from "@frontend/Types/EnumTyp
 
 let listings : Listing[] = listingsConstant;
 
-function getListingById(req: any, res: any, next: NextFunction) {
+async function getListingById(req: any, res: any, next: NextFunction) {
     const listingId = String(req.params.lid);
-    const listing = listings.find(l => {
-        return l.listingId === listingId;
-    })
-
-    if (!listing) {
-        const error : HttpError = new HttpError('Listing not found', 404);
-        return next(error);
-    } 
+    let listing;
+    try {
+        listing = await ListingModel.findById(listingId);
+    } catch(error) {
+        console.log(error);
+        return next(new HttpError('Something went wrong. Could not find listing.', 500));
+    }
     
-    return res.json({listing});
-}
-
-function getAllListingsByUserId(req: any, res: any, next: NextFunction) {
-    const userId = req.params.uid;
-
-    const userListings : Listing[] = listings.filter(l => l.userId === userId);
-    if (!userListings || userListings.length === 0) {
-        const error = new HttpError('Could not find any listings for the specified user.', 404);
-        return next(error);
+    if (!listing) {
+        return next(new HttpError('Could not find listing for provided id', 404));
     }
 
-    return res.json({userListings});
+    return res.json({listing: listing.toObject({getters: true})});
+}
+
+async function getListingsByUserId(req: any, res: any, next: NextFunction) {
+    const userId = String(req.params.uid);
+
+    let listings;
+    try {
+        listings = await ListingModel.find({ userId: userId });
+    } catch(error) {
+        console.log(error);
+        return next(new HttpError('Something went wrong. Could not find listings for given user.', 500));
+    }
+
+    return res.json({listing: listings.map(listing => listing.toObject({getters: true}))});
 }
 
 async function createListing(req: any, res: any, next: NextFunction) {
@@ -73,40 +78,51 @@ async function createListing(req: any, res: any, next: NextFunction) {
     res.status(201).json({listing: createdListing});
 }
 
-function updateListingById(req: any, res: any, next: NextFunction) {
-    // const validationErros = validationResult(req);
-    // if (!validationErros.isEmpty()) {
-    //     throw new HttpError("Invalid input, please check your data.", 422);
-    // }
-    // const { title, description } = req.body;
-    // const listingId = req.params.lid;
+async function updateListingById(req: any, res: any, next: NextFunction) {
+    const listingId = String(req.params.lid);
 
-    // const foundListing : Listing | undefined = listings.find(l => l.listingId === listingId);
+    const { title, description } = req.body;
 
-    // if (!foundListing) {
-    //     const error : HttpError = new HttpError('Listing not found', 404);
-    //     return next(error);
-    // }
+    let listing;
+    try {
+        listing = await ListingModel.findById(listingId);
+    } catch(error) {
+        console.log(error);
+        return next(new HttpError('Something went wrong. Could not find listing.', 500));
+    }
     
-    // const updatedListing = {...foundListing};
-    // const listingIndex = listings.findIndex(l => l.listingId === listingId);
-    // updatedListing.listingBody.title = title;
-    // updatedListing.listingBody.description = description;
+    if (!listing) {
+        return next(new HttpError('Could not find listing for provided id', 404));
+    }
+    listing.title = title;
+    listing.description = description;
 
-    // listings[listingIndex] = updatedListing;
-    // res.status(200).json({listing: updatedListing })
-}
-
-function deleteListingById(req: any, res: any, next: NextFunction) {
-    const listingId = req.params.lid;
-    if (!listings.find(l => l.listingId === listingId)) {
-        const error : HttpError = new HttpError('Listing not found', 404);
-        return next(error);
+    try {
+        listing.save();
+    } catch(error) {
+        console.log(error);
+        return next(new HttpError('Something went wrong. Could not update listing.', 500));
     }
 
-    listings = listings.filter(l => l.listingId !== l.listingId);
-    res.status(200).json({message: 'Deleted listing'});
-
+    return res.json({listing: listing.toObject({getters: true})});
 }
 
-export { getListingById, getAllListingsByUserId, createListing, updateListingById, deleteListingById }; 
+async function deleteListingById(req: any, res: any, next: NextFunction) {
+    const listingId = String(req.params.lid);
+    
+    let listing;
+    try {
+        listing = await ListingModel.findByIdAndDelete(listingId);
+    } catch(error) {
+        console.log(error);
+        return next(new HttpError('Something went wrong. Could not delete listing.', 500)); 
+    }
+
+    if (!listing) {
+        return next(new HttpError('Could not delete listing. Listing does not exist.', 500)); 
+    }
+
+    res.status(200).json({message: 'Deleted listing.'});
+}
+
+export { getListingById, getListingsByUserId, createListing, updateListingById, deleteListingById }; 

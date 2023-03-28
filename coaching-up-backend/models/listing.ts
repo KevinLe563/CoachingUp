@@ -10,13 +10,13 @@ const listingSchema = new Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
     coachId: { type: String, required: true },
-    interactionMethod: { type: ListingInteractionMethod, required: true },
-    price: {
+    interactionMethod: { type: String, enum: ListingInteractionMethod, required: true },
+    priceInfo: {
         price: { type: Number, required: true },
-        interval: { type: TimeIntervals, required: true }
+        interval: { type: String, enum: TimeIntervals, required: true }
     },
     userId: { type: String, required: true}
 });
 
-const ListingModel = mongoose.model<Listing>('ListingModel', listingSchema);
+const ListingModel = mongoose.model<Listing>('Listing', listingSchema);
 export default ListingModel;

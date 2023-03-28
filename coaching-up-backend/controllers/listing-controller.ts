@@ -63,10 +63,10 @@ async function createListing(req: any, res: any, next: NextFunction) {
         priceInfo,
         userId
     });
-
     try {
         await createdListing.save();
     } catch (error) {
+        console.log(error);
         return next(new HttpError('Listing creation failed.', 500));
     }
 
@@ -74,27 +74,27 @@ async function createListing(req: any, res: any, next: NextFunction) {
 }
 
 function updateListingById(req: any, res: any, next: NextFunction) {
-    const validationErros = validationResult(req);
-    if (!validationErros.isEmpty()) {
-        throw new HttpError("Invalid input, please check your data.", 422);
-    }
-    const { title, description } = req.body;
-    const listingId = req.params.lid;
+    // const validationErros = validationResult(req);
+    // if (!validationErros.isEmpty()) {
+    //     throw new HttpError("Invalid input, please check your data.", 422);
+    // }
+    // const { title, description } = req.body;
+    // const listingId = req.params.lid;
 
-    const foundListing : Listing | undefined = listings.find(l => l.listingId === listingId);
+    // const foundListing : Listing | undefined = listings.find(l => l.listingId === listingId);
 
-    if (!foundListing) {
-        const error : HttpError = new HttpError('Listing not found', 404);
-        return next(error);
-    }
+    // if (!foundListing) {
+    //     const error : HttpError = new HttpError('Listing not found', 404);
+    //     return next(error);
+    // }
     
-    const updatedListing = {...foundListing};
-    const listingIndex = listings.findIndex(l => l.listingId === listingId);
-    updatedListing.listingBody.title = title;
-    updatedListing.listingBody.description = description;
+    // const updatedListing = {...foundListing};
+    // const listingIndex = listings.findIndex(l => l.listingId === listingId);
+    // updatedListing.listingBody.title = title;
+    // updatedListing.listingBody.description = description;
 
-    listings[listingIndex] = updatedListing;
-    res.status(200).json({listing: updatedListing })
+    // listings[listingIndex] = updatedListing;
+    // res.status(200).json({listing: updatedListing })
 }
 
 function deleteListingById(req: any, res: any, next: NextFunction) {

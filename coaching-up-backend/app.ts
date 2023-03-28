@@ -1,5 +1,6 @@
 import express, { Express, Request, Response, Router, ErrorRequestHandler, NextFunction } from 'express';
 import mongoose from 'mongoose';
+import * as dotenv from 'dotenv';
 import bodyParser from "body-parser";
 
 import { HttpError } from 'models/http-error';
@@ -8,7 +9,8 @@ import userRouter from 'routes/user-routes';
 
 const app: Express = express();
 // TODO: configure real password
-const dbConnectionString = 'mongodb+srv://admin:admin563@cluster0.yzxviui.mongodb.net/listings?retryWrites=true&w=majority';
+dotenv.config();
+const dbConnectionString = process.env.MONGODB_CONNECTION_URL;
 
 app.use(bodyParser.json());
 
@@ -34,10 +36,14 @@ app.use((error: any, req: Request, res: Response, next: NextFunction) => {
     res.json({message: error.message || "An unknown error occured."});
 });
 
-mongoose.connect(
-    dbConnectionString
-).then(() => {
-    app.listen(5000);
-}).catch((error) => {
-    console.log(error);
-});
+if (dbConnectionString) {
+    mongoose.connect(
+        dbConnectionString
+    ).then(() => {
+        app.listen(5000);
+    }).catch((error) => {
+        console.log(error);
+    });
+} else {
+    throw new Error("DB connection string not found.");
+}

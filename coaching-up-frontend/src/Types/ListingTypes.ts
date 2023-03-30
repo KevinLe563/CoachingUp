@@ -1,4 +1,4 @@
-import { UserInfo } from './UserTypes';
+import { User } from './UserTypes';
 import { CoachInfo } from './CoachTypes';
 import { Title, Description } from './StringTypes';
 import { ListingInteractionMethod } from './EnumTypes';

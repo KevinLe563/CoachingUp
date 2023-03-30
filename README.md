@@ -9,3 +9,4 @@ src:
     - Network: networking with others
     - Listing: Coaching listings
     - Profile: Personal Profile
+    - Marketplace

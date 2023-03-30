@@ -9,7 +9,7 @@ const userRouter: Router = express.Router();
 userRouter.get('/:uid', getUserById);
 
 userRouter.post('/login', loginUser);
-userRouter.post('/signup', [check('username').not().isEmpty(), check('email').normalizeEmail().isEmail(), check('password').isLength({ min: 6 })], signupUser);
+userRouter.post('/signup', signupUser);
 
 export default userRouter;
 

@@ -1,16 +1,9 @@
 import { NextFunction } from "express";
 import { validationResult } from "express-validator/src/validation-result";
-import bodyParser from "body-parser";
-import {v4} from "uuid";
 
 import { HttpError } from "models/http-error";
 import ListingModel from "models/listing";
-import { user1, listings as listingsConstant, coach, priceInfo } from '@frontend/Testing/Constants/Constants';
-import { Listing } from "@frontend/Types/ListingTypes";
 import { PriceInfo } from "@frontend/Types/PriceTypes";
-import { ListingInteractionMethod, TimeIntervals } from "@frontend/Types/EnumTypes";
-
-let listings : Listing[] = listingsConstant;
 
 async function getListingById(req: any, res: any, next: NextFunction) {
     const listingId = String(req.params.lid);
@@ -46,7 +39,7 @@ async function getListingsByUserId(req: any, res: any, next: NextFunction) {
 async function createListing(req: any, res: any, next: NextFunction) {
     const validationErros = validationResult(req);
     if (!validationErros.isEmpty()) {
-        throw new HttpError("Invalid input, please check your data.", 422);
+        return next(new HttpError("Invalid input, please check your data.", 422));
     }
 
     const {

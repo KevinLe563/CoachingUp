@@ -1,11 +1,12 @@
 import { AccountType } from "./EnumTypes"
 
-interface UserInfo {
+interface User {
     userId: string,
-    username: string,
-    userEmail: string,
-    userPassword: string,
-    userType: AccountType,
+    fname: string,
+    lname: string,
+    email: string,
+    password: string,
+    accountType: AccountType,
 }
 
-export type { UserInfo };
+export type { User};

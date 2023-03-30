@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 import { ListingInteractionMethod, TimeIntervals } from "@frontend/Types/EnumTypes";
 import { Listing } from '@frontend/Types/ListingTypes';
+import UserModel from './user';
 
 const Schema = mongoose.Schema;
 
@@ -15,7 +16,7 @@ const listingSchema = new Schema({
         price: { type: Number, required: true },
         interval: { type: String, enum: TimeIntervals, required: true }
     },
-    userId: { type: String, required: true}
+    userId: { type: mongoose.Types.ObjectId, required: true, ref: 'UserModel'}
 });
 
 const ListingModel = mongoose.model<Listing>('Listing', listingSchema);

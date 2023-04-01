@@ -1,3 +1,5 @@
+import { Types } from 'mongoose';
+
 import { User } from './UserTypes';
 import { CoachInfo } from './CoachTypes';
 import { Title, Description } from './StringTypes';
@@ -12,7 +14,7 @@ interface Listing {
     coachId: string,
     interactionMethod: ListingInteractionMethod
     priceInfo: PriceInfo,
-    userId: string,
+    userId: Types.ObjectId,
 }
 
 export type { Listing };

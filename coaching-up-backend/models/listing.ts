@@ -16,7 +16,7 @@ const listingSchema = new Schema({
         price: { type: Number, required: true },
         interval: { type: String, enum: TimeIntervals, required: true }
     },
-    userId: { type: mongoose.Types.ObjectId, required: true, ref: 'UserModel'}
+    userId: { type: mongoose.Types.ObjectId, required: true, ref: 'User'}
 });
 
 const ListingModel = mongoose.model<Listing>('Listing', listingSchema);

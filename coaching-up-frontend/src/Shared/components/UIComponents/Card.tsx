@@ -13,16 +13,16 @@ import { Listing } from '../../../Types/ListingTypes';
 import { DetailsModal, DeletionModal } from './Modal';
 import './Card.css';
 import logo from './dumbbell.jpg';
-import { UserInfo } from '../../../Types/UserTypes';
+import { User } from '../../../Types/UserTypes';
 import { AccountType } from '../../../Types/EnumTypes';
 
 // TODO: Make card titles etc. a prop so we can use for 3 different things: applications received(coach), applications submitted(client), Postings created(coach)
 // TODO: make userinfo come from global context
 // TODO: make listings deactivatble and reactivatable
-function ListingCard(props: (Listing & UserInfo)) {
+function ListingCard(props: (Listing & User)) {
     console.log(props);
-    const isClient : boolean = props.userType === AccountType.Client;
-    const isCoach : boolean = props.userType === AccountType.Coach;
+    const isClient : boolean = props.accountType === AccountType.CLIENT;
+    const isCoach : boolean = props.accountType === AccountType.COACH;
     // TODO: Append all enum tags into a string array to be mapped (make a function or something)
     const tags : string[] = [];
 
@@ -44,10 +44,10 @@ function ListingCard(props: (Listing & UserInfo)) {
 
                         <tr>
                             <td>
-                                {props.listingDate.toDateString()}    
+                                {props.creationDate.toDateString()}    
                             </td>
                             <td>
-                                <>${props.listingBody.price.price}/{props.listingBody.price.interval}</>
+                                <>${props.priceInfo.price}/{props.priceInfo.interval}</>
                             </td>
                             <td className="">
                                 {/* TODO: move this to the right, make first 2 columns narrower */}

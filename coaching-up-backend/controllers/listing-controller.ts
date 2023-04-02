@@ -6,8 +6,6 @@ import { HttpError } from "models/http-error";
 import ListingModel from "models/listing";
 import UserModel from "models/user";
 import { PriceInfo } from "@frontend/Types/PriceTypes";
-import { User } from "@frontend/Types/UserTypes";
-import { Listing } from "@frontend/Types/ListingTypes";
 
 async function getListingById(req: any, res: any, next: NextFunction) {
     const listingId = String(req.params.lid);

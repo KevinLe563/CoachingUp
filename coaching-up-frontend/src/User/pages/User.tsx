@@ -2,8 +2,8 @@ import React from 'react';
 
 import { UserListings } from '../components/UserListings';
 
-import { UserInfo } from '../../Types/UserTypes';
-import { Listing, ListingBody } from '../../Types/ListingTypes';
+import { User } from '../../Types/UserTypes';
+import { Listing } from '../../Types/ListingTypes';
 import { AccountType, ListingInteractionMethod, TimeIntervals } from '../../Types/EnumTypes';
 import { CoachInfo } from '../../Types/CoachTypes';
 import { PriceInfo } from '../../Types/PriceTypes';

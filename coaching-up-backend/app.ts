@@ -8,7 +8,6 @@ import listingRouter from './routes/listing-routes';
 import userRouter from 'routes/user-routes';
 
 const app: Express = express();
-// TODO: configure real password
 dotenv.config();
 const dbConnectionString = process.env.MONGODB_CONNECTION_URL;
 

@@ -37,10 +37,31 @@ function AuthForm(props : AuthProps) {
         setIsLoginMode(prevMode => !prevMode);
     };
 
+    const [values, setValues] = useState({});
+    const onFormChange = (event : React.ChangeEvent<HTMLInputElement>) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        setValues({values, [name]: value});
+        console.log(name, value);
+    }
+
     const auth = useContext(AuthContext);
-    const authSubmitHandler = () => {
+    const authSubmitHandler = (event : React.FormEvent) => {
+        // fetch('http://localhost:5000/api/users/signup',
+        // {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         values,
+
+        //     })
+        // });
+
+        console.log(values);
+
         auth.login();
-        console.log(auth.isLoggedIn);
       };
 
 
@@ -55,9 +76,9 @@ function AuthForm(props : AuthProps) {
                         {!isLoginMode &&
                             <>
                             <Form.Label>First Name</Form.Label>
-                            <Form.Control required />
+                            <Form.Control required name="fname" onChange={onFormChange} />
                             <Form.Label>Last Name</Form.Label>
-                            <Form.Control required />
+                            <Form.Control required name="lname" />
                             </>
                         }
 
@@ -67,11 +88,11 @@ function AuthForm(props : AuthProps) {
                         {!isLoginMode &&
                             <>
                             <Form.Label>Email</Form.Label>
-                            <Form.Control required />
+                            <Form.Control required name="email" />
                             </>
                         }
                         <Form.Label>Password</Form.Label>
-                        <Form.Control required />
+                        <Form.Control required name="password" />
                     </Form.Group>
                     <Form.Group className="form-group">
                         <button type="submit" className="btn btn-primary">{isLoginMode ? 'Login' : 'Signup'}</button>

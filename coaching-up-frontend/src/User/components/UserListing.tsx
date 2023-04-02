@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import './UserListings.css';
 import { Listing } from '../../Types/ListingTypes'
 import { ListingCard } from '../../Shared/components/UIComponents/Card';
-import { UserInfo } from '../../Types/UserTypes';
+import { User } from '../../Types/UserTypes';
 
-function UserListing(props: (Listing & UserInfo)) {
+function UserListing(props: (Listing & User)) {
     return (
         <ListingCard {...props} />
     )

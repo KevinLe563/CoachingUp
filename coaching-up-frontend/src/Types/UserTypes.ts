@@ -13,4 +13,4 @@ interface User {
     listings: Types.ObjectId[]
 }
 
-export type { User};
+export type { User };

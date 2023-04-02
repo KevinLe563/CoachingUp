@@ -6,14 +6,14 @@ import { Container } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 
 import './MainNavigation.css';
-import { UserInfo } from '../../../Types/UserTypes';
+import { User } from '../../../Types/UserTypes';
 import { AccountType } from '../../../Types/EnumTypes';
 import { AuthContext } from '../../context/AuthContext';
 
 function MainNavigation() {
     // TODO: fetch from backend or use a context
-    const userType : AccountType = AccountType.Coach;
-    const isCoach = userType === AccountType.Coach;
+    const userType : AccountType = AccountType.COACH;
+    const isCoach = userType === AccountType.COACH;
 
     const auth = useContext(AuthContext);
     return (

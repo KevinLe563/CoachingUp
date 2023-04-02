@@ -8,7 +8,7 @@ import { userInfo } from 'os';
 import { listings, user1 } from '../../Testing/Constants/Constants';
 
 function UserListings(props : Listing[]) {
-    const userListings = Object.values(props).filter(l => l.userId === user1.userId);
+    const userListings : Listing[] = Object.values(props).filter(l => l.userId.toString() === user1.userId);
     if (userListings.length === 0) {
         return (
             <h2>

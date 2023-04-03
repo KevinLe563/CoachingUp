@@ -45,8 +45,8 @@ function CustomModal(props: (ModalProps & Listing)) {
 function DetailsModal(props: Listing) {
     const [modalShow, setModalShow] = React.useState(false);
     const detailsHeading = "Details"
-    const detailTitle = props.listingBody.title
-    const detailDescription = props.listingBody.description
+    const detailTitle = props.title
+    const detailDescription = props.description
     return (
         <>
             <Button variant="primary" onClick={() => setModalShow(true)}>

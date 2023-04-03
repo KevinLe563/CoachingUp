@@ -5,6 +5,7 @@ import {
   Navigate, // Redirect changed to navigate
   Routes // Switch changed to routes
 } from 'react-router-dom';
+import LoadingOverlay from 'react-loading-overlay-ts';
 
 import logo from './logo.svg';
 import './App.css';
@@ -15,8 +16,10 @@ import UpdatePosting from './User/pages/UpdatePosting';
 import Auth from './User/pages/Auth';
 import { MainNavigation } from './Shared/components/Navigation/MainNavigation';
 import { AuthContext } from './Shared/context/AuthContext';
+import { LoadingContext } from './Shared/context/LoadingContext';
 
 function App() {
+  // refactor this to be in the context file
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   
   // cache app function between re-renders based on dependancies to remove infinite loops
@@ -26,6 +29,17 @@ function App() {
 
   const logout = useCallback(() => {
     setIsLoggedIn(false);
+  }, []);
+
+  const [isLoading, setIsLoading] = useState(false);
+  
+  // cache app function between re-renders based on dependancies to remove infinite loops
+  const Loading = useCallback(() => {
+    setIsLoading(true);
+  }, []);
+
+  const isNotLoading = useCallback(() => {
+    setIsLoading(false);
   }, []);
 
   let routes;
@@ -43,19 +57,23 @@ function App() {
     routes = (
       <Routes>
         <Route path='/auth' element={<Auth />} /> 
-        <Route path='/' element={<Home />} />
+        {/* <Route path='/' element={<Home />} /> */}
         <Route path='*' element={<Navigate to={'/auth'} />} />
       </Routes>
     );
   }
 
   return (
-    <AuthContext.Provider value={{isLoggedIn: isLoggedIn, login: login, logout: logout}}>
-      <Router>
-        <MainNavigation />
-          {routes}
-      </Router>
-    </AuthContext.Provider>
+    <LoadingContext.Provider value={{isLoading: isLoading, setLoading: Loading, setNotLoading: isNotLoading }}>
+      <LoadingOverlay className="loading-overlay" active={isLoading} spinner text="Logging you in...">
+        <AuthContext.Provider value={{isLoggedIn: isLoggedIn, login: login, logout: logout}}>
+          <Router>
+            {isLoggedIn && <MainNavigation />}
+            {routes}
+          </Router>
+        </AuthContext.Provider>
+      </LoadingOverlay>
+    </LoadingContext.Provider>
   )
 }
 

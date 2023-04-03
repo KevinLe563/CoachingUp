@@ -18,9 +18,10 @@ function UserListings(props : Listing[]) {
     }
     return (
         <>
-            {userListings.map(listing => (
+            <h1>temp</h1>
+            {/* {userListings.map(listing => (
                 <UserListing {...listing} {...user1} />
-            ))}
+            ))} */}
         </>
     )
 }

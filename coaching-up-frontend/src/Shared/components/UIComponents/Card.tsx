@@ -68,11 +68,11 @@ function ListingCard(props: (Listing & User)) {
                     <Col sm={8}>
                         <Link to={`/${props.userId}/listings/${props.listingId}/edit`}>
                             <Card.Title>
-                                {props.listingBody.title}
+                                {props.title}
                             </Card.Title>
                         </Link>
                         <Card.Text>
-                            {props.listingBody.description}
+                            {props.description}
                         </Card.Text>
                         {/* TODO: Check if tags is empty */}
                         {tags.map(tag => {
@@ -90,11 +90,11 @@ function ListingCard(props: (Listing & User)) {
                             <Button>Edit {isClient ? "Application" : "Posting"}</Button>
                         </Link>
                         
-                        {props.listingBody.coach.coachInstagram &&
+                        {/* {props.coach.coachInstagram &&
                         <Button>Instagram</Button>}
 
                         {props.listingBody.coach.coachWebsite &&
-                        <Button>Website</Button>}
+                        <Button>Website</Button>} */}
 
                         <DetailsModal {...props} />
                         

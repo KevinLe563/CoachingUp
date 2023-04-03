@@ -1,6 +1,7 @@
 import express, { Express, Request, Response, Router, ErrorRequestHandler, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
+import cors from 'cors';
 import bodyParser from "body-parser";
 
 import { HttpError } from 'models/http-error';
@@ -13,11 +14,24 @@ const dbConnectionString = process.env.MONGODB_CONNECTION_URL;
 
 app.use(bodyParser.json());
 
+app.use(cors());
+
+// app.use((req, res, next) => {
+//     res.setHeader('Access-Control-Allow-Origin', '*');
+//     res.setHeader(
+//         'Access-Control-Allow-Headers',
+//         'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+//     );
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
+
+//     next();
+// });
+
 /* listing routes */
 app.use('/api/listings', listingRouter);
 
 /* user routes */
-app.use('/api/user', userRouter);
+app.use('/api/users', userRouter);
 
 /* Default invalid url response */
 app.use((req, res, next) => {

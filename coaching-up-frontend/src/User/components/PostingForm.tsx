@@ -10,7 +10,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 
 import './Form.css';
-import { UserInfo } from "../../Types/UserTypes";
+import { User } from "../../Types/UserTypes";
 import { CoachInfo } from "../../Types/CoachTypes";
 import { Container, FormControl } from "react-bootstrap";
 import { ListingInteractionMethod } from "../../Types/EnumTypes";
@@ -57,7 +57,7 @@ function GenerateButtonValue() {
 function PostingForm(props: PostingFormProps) {
     const coachInfo : CoachInfo = props.coachInfo;
     const listingInfo : Listing | undefined = props.listingInfo;
-    console.log(listingInfo);
+    // console.log(listingInfo);
     return (
         <>
             <Container className="form-container border">
@@ -85,7 +85,7 @@ function PostingForm(props: PostingFormProps) {
                             </Form.Label>
                             <Form.Control 
                                 required
-                                defaultValue={listingInfo ? listingInfo.listingBody.title : ""}
+                                defaultValue={listingInfo ? listingInfo.title : ""}
                             />
                             </Col>
                         </Row>
@@ -98,7 +98,7 @@ function PostingForm(props: PostingFormProps) {
                                     as="textarea" 
                                     aria-label="Description"
                                     required
-                                    defaultValue={listingInfo ? listingInfo.listingBody.description : ""}
+                                    defaultValue={listingInfo ? listingInfo.description : ""}
                                 />
                             </Col>
                         </Row>
@@ -123,7 +123,7 @@ function PostingForm(props: PostingFormProps) {
                                 <Form.Label>
                                     Method
                                 </Form.Label>
-                                <Form.Select defaultValue={listingInfo ? listingInfo.listingBody.interactionMethod : ListingInteractionMethod.Online}>
+                                <Form.Select defaultValue={listingInfo ? listingInfo.interactionMethod : ListingInteractionMethod.ONLINE}>
                                     <>
                                         {GenerateMethodOptions()}
                                     </>

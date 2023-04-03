@@ -69,7 +69,7 @@ function AuthForm() {
                 setError(undefined);
                 // for testing
                 const sleep = (ms : number) => new Promise(r => setTimeout(r, ms));
-                await sleep(500000);
+                await sleep(5000);
                 //
                 const response = await fetch('http://localhost:5000/api/users/signup',
                 {

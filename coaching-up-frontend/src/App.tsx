@@ -20,7 +20,7 @@ import { LoadingContext } from './Shared/context/LoadingContext';
 
 function App() {
   // refactor this to be in the context file
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   
   // cache app function between re-renders based on dependancies to remove infinite loops
   const login = useCallback(() => {
@@ -65,17 +65,26 @@ function App() {
 
   return (
     <LoadingContext.Provider value={{isLoading: isLoading, setLoading: Loading, setNotLoading: isNotLoading }}>
-      <LoadingOverlay className="loading-overlay" active={isLoading} spinner text="Logging you in...">
         <AuthContext.Provider value={{isLoggedIn: isLoggedIn, login: login, logout: logout}}>
           <Router>
             {isLoggedIn && <MainNavigation />}
             {routes}
           </Router>
         </AuthContext.Provider>
-      </LoadingOverlay>
     </LoadingContext.Provider>
   )
 }
+
+{/* <LoadingContext.Provider value={{isLoading: isLoading, setLoading: Loading, setNotLoading: isNotLoading }}>
+      {isLoading ? (<LoadingOverlay className="loading-overlay" active={isLoading} spinner text="Logging you in...">
+        {appBody}
+      </LoadingOverlay>
+      ) : (
+        <>
+        {appBody}
+        </>
+      )}
+    </LoadingContext.Provider> */}
 
 // return (
 //   <div className="App">

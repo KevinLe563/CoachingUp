@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Formik } from 'formik';
+import LoadingOverlay from 'react-loading-overlay-ts';
 import * as Yup from 'yup';
 
 import Button from 'react-bootstrap/Button';
@@ -16,6 +17,7 @@ import { Container, FormControl } from "react-bootstrap";
 import { ListingInteractionMethod } from "../../Types/EnumTypes";
 import { Listing } from "../../Types/ListingTypes";
 import { constants } from "buffer";
+import { LoadingContext } from "../../Shared/context/LoadingContext";
 
 interface PostingFormProps  {
     coachInfo: CoachInfo;
@@ -57,11 +59,52 @@ function GenerateButtonValue() {
 function PostingForm(props: PostingFormProps) {
     const coachInfo : CoachInfo = props.coachInfo;
     const listingInfo : Listing | undefined = props.listingInfo;
+    const loading = useContext(LoadingContext);
+    const postingSubmitHandler = async (event : React.FormEvent) => {
+        event.preventDefault();
+    
+        
+        // const [isLoading, setIsLoading] = useState(false);
+    
+        try {
+            loading.setLoading();
+            // for testing
+            console.log(loading.isLoading);
+            const sleep = (ms : number) => new Promise(r => setTimeout(r, ms));
+            await sleep(5000);
+            //
+            // const response = await fetch('http://localhost:5000/api/users/signup',
+            // {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify({
+            //         fname: values["fname"],
+            //         lname: values["lname"],
+            //         email: values["email"],
+            //         password: values["password"]
+            //     })
+            // });
+    
+            // const responseData = await response.json();
+            // console.log(responseData);
+            // if (!response.ok) {
+            //     throw new Error(responseData.message);
+            // }
+            // auth.login();
+        } catch(err) {
+            // console.log(err);
+            // setError((err as Error).message || 'Something went wrong. Please try again.');
+        }
+      };
+
     // console.log(listingInfo);
     return (
         <>
+        <LoadingOverlay className="loading-overlay" active={loading.isLoading} spinner text="Creating new posting...">
             <Container className="form-container border">
-                <Form className="form">
+                <Form className="form" onSubmit={postingSubmitHandler}>
                     <h1>New Posting</h1>
 
                     <Form.Group className="form-group">
@@ -137,6 +180,7 @@ function PostingForm(props: PostingFormProps) {
                     </Form.Group>
                 </Form>
             </Container>
+        </LoadingOverlay>
         </>
     );
 }

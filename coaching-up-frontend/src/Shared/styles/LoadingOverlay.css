@@ -1,0 +1,10 @@
+.loading-overlay {
+    top: 0;
+    left: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+  }

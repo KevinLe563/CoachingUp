@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useContext, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Formik } from 'formik';
 import LoadingOverlay from 'react-loading-overlay-ts';
 import * as Yup from 'yup';
@@ -60,18 +60,18 @@ function PostingForm(props: PostingFormProps) {
     const coachInfo : CoachInfo = props.coachInfo;
     const listingInfo : Listing | undefined = props.listingInfo;
     const loading = useContext(LoadingContext);
+    const navigate = useNavigate();
     const postingSubmitHandler = async (event : React.FormEvent) => {
         event.preventDefault();
-    
         
         // const [isLoading, setIsLoading] = useState(false);
-    
         try {
+            // TODO: FIGURE OUT HOW TO REMOVE THE SCROLL TO BOTTOM THING
             loading.setLoading();
             // for testing
             console.log(loading.isLoading);
             const sleep = (ms : number) => new Promise(r => setTimeout(r, ms));
-            await sleep(5000);
+            await sleep(1000);
             //
             // const response = await fetch('http://localhost:5000/api/users/signup',
             // {
@@ -93,16 +93,18 @@ function PostingForm(props: PostingFormProps) {
             //     throw new Error(responseData.message);
             // }
             // auth.login();
+            loading.setNotLoading();
         } catch(err) {
             // console.log(err);
             // setError((err as Error).message || 'Something went wrong. Please try again.');
         }
+        // navigate('/user/listings')
       };
 
     // console.log(listingInfo);
     return (
         <>
-        <LoadingOverlay className="loading-overlay" active={loading.isLoading} spinner text="Creating new posting...">
+        {/* <LoadingOverlay className="loading-overlay" active={loading.isLoading} spinner text="Creating new posting..."> */}
             <Container className="form-container border">
                 <Form className="form" onSubmit={postingSubmitHandler}>
                     <h1>New Posting</h1>
@@ -180,7 +182,7 @@ function PostingForm(props: PostingFormProps) {
                     </Form.Group>
                 </Form>
             </Container>
-        </LoadingOverlay>
+        {/* </LoadingOverlay> */}
         </>
     );
 }

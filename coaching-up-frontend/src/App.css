@@ -39,10 +39,19 @@
   }
 }
 
-.loading-overlay {
+.loading-overlay-active {
   top: 0;
   left: 0;
   position: fixed;
+  height: 100%;
+  width: 100%;
+}
+
+.loading-overlay-inactive {
+  top: 0;
+  left: 0;
+  position: fixed;
+  overflow: auto;
   height: 100vh;
   width: 100%;
 }

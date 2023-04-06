@@ -65,7 +65,7 @@ function App() {
 
   return (
     <LoadingContext.Provider value={{isLoading: isLoading, setLoading: Loading, setNotLoading: isNotLoading }}>
-      <LoadingOverlay className="loading-overlay" active={isLoading} spinner text="Logging you in...">
+      <LoadingOverlay className={`loading-overlay-${isLoading ? "active" : "inactive"}`} active={isLoading} spinner text="Logging you in...">
         <AuthContext.Provider value={{isLoggedIn: isLoggedIn, login: login, logout: logout}}>
           <Router>
             {isLoggedIn && <MainNavigation />}

@@ -14,7 +14,6 @@ import { Container, FormControl } from "react-bootstrap";
 
 import './Form.css';
 import './AuthForm.css';
-import '../../Shared/styles/LoadingOverlay.css';
 import { User } from "../../Types/UserTypes";
 import { CoachInfo } from "../../Types/CoachTypes";
 import { ListingInteractionMethod } from "../../Types/EnumTypes";
@@ -46,6 +45,7 @@ function AuthForm() {
     };
 
     const loading = useContext(LoadingContext);
+    const [isLoading, setIsLoading] = useState(false);
 
     const [error, setError] = useState<string>();
 
@@ -69,7 +69,7 @@ function AuthForm() {
                 setError(undefined);
                 // for testing
                 const sleep = (ms : number) => new Promise(r => setTimeout(r, ms));
-                await sleep(50000);
+                await sleep(5000);
                 //
                 const response = await fetch('http://localhost:5000/api/users/signup',
                 {
@@ -87,51 +87,50 @@ function AuthForm() {
 
                 const responseData = await response.json();
                 console.log(responseData);
-                if (!response.ok) {
-                    throw new Error(responseData.message);
-                }
+                loading.setNotLoading();
                 auth.login();
             } catch(err) {
                 console.log(err);
                 setError((err as Error).message || 'Something went wrong. Please try again.');
             }
-
-            loading.setNotLoading();
         }
+
+        console.log(JSON.stringify({
+            fname: values["fname"],
+            lname: values["lname"]
+        }));
       };
 
 
     // TODO: add form validations
     return (
         <>
-            <LoadingOverlay className="loading-overlay" active={loading.isLoading} spinner text="Logging you in...">
-                <Container className="form-container border">
-                    {/* {!isLoading && <LoadingSpinner />} */}
-                        <Form className="form" onSubmit={authSubmitHandler}>
-                            <h1>{isLoginMode ? loginHeader : signupHeader}</h1>
+            <Container className="form-container border">
+                {/* {!isLoading && <LoadingSpinner />} */}
+                    <Form className="form" onSubmit={authSubmitHandler}>
+                        <h1>{isLoginMode ? loginHeader : signupHeader}</h1>
 
-                            <Form.Group className="form-group">
-                                {!isLoginMode &&
-                                    <>
-                                    <Form.Label>First Name</Form.Label>
-                                    <Form.Control required name="fname" onChange={onFormChange} />
-                                    <Form.Label>Last Name</Form.Label>
-                                    <Form.Control required name="lname" onChange={onFormChange} />
-                                    </>
-                                }
+                        <Form.Group className="form-group">
+                            {!isLoginMode &&
+                                <>
+                                <Form.Label>First Name</Form.Label>
+                                <Form.Control required name="fname" onChange={onFormChange} />
+                                <Form.Label>Last Name</Form.Label>
+                                <Form.Control required name="lname" onChange={onFormChange} />
+                                </>
+                            }
 
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control required name="email" onChange={onFormChange} />
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control required name="password" onChange={onFormChange} />
-                            </Form.Group>
-                            <Form.Group className="form-group">
-                                <button type="submit" className="btn btn-primary">{isLoginMode ? 'Login' : 'Signup'}</button>
-                            </Form.Group>
-                            <a className="form-mode-switch" href="#" onClick={switchAuthMode}>{isLoginMode ? loginModeSwitchString : signupModeSwitchString}</a>
-                        </Form>
-                </Container>
-            </LoadingOverlay>
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control required name="email" onChange={onFormChange} />
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control required name="password" onChange={onFormChange} />
+                        </Form.Group>
+                        <Form.Group className="form-group">
+                            <button type="submit" className="btn btn-primary">{isLoginMode ? 'Login' : 'Signup'}</button>
+                        </Form.Group>
+                        <a className="form-mode-switch" href="#" onClick={switchAuthMode}>{isLoginMode ? loginModeSwitchString : signupModeSwitchString}</a>
+                    </Form>
+            </Container>
         </>
     );
 }

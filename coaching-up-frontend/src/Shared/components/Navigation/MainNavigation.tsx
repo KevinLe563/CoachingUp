@@ -9,17 +9,14 @@ import './MainNavigation.css';
 import { User } from '../../../Types/UserTypes';
 import { AccountType } from '../../../Types/EnumTypes';
 import { AuthContext } from '../../context/AuthContext';
-import { LoadingContext } from '../../context/LoadingContext';
 
 function MainNavigation() {
     // TODO: fetch from backend or use a context
     const userType : AccountType = AccountType.COACH;
     const isCoach = userType === AccountType.COACH;
-    const loading = useContext(LoadingContext);
+
     const auth = useContext(AuthContext);
     return (
-        <>
-        {(!loading.isLoading &&
         <Navbar expand="lg">
             <Container fluid>
                 {/* TODO: ADD LINKS */}
@@ -66,8 +63,6 @@ function MainNavigation() {
                 </Navbar.Collapse>
             </Container>
         </Navbar>
-        )}
-        </>
     )
 }
 

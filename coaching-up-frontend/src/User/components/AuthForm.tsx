@@ -22,6 +22,7 @@ import { constants } from "buffer";
 import CardHeader from "react-bootstrap/esm/CardHeader";
 import { AuthContext } from "../../Shared/context/AuthContext";
 import { LoadingContext } from "../../Shared/context/LoadingContext";
+import { ErrorModal } from "../../Shared/components/UIComponents/Modal"; 
 
 const loginModeSwitchString = 'Don\'t have an account? Sign up';
 const signupModeSwitchString = 'Already have an account? Login';
@@ -45,7 +46,6 @@ function AuthForm() {
     };
 
     const loading = useContext(LoadingContext);
-    const [isLoading, setIsLoading] = useState(false);
 
     const [error, setError] = useState<string>();
 
@@ -69,7 +69,7 @@ function AuthForm() {
                 setError(undefined);
                 // for testing
                 const sleep = (ms : number) => new Promise(r => setTimeout(r, ms));
-                await sleep(5000);
+                // await sleep(5000);
                 //
                 const response = await fetch('http://localhost:5000/api/users/signup',
                 {
@@ -86,25 +86,37 @@ function AuthForm() {
                 });
 
                 const responseData = await response.json();
-                console.log(responseData);
+                if (!response.ok) {
+                    throw new Error(responseData.message);
+                }
                 loading.setNotLoading();
                 auth.login();
             } catch(err) {
                 console.log(err);
+                loading.setNotLoading();
                 setError((err as Error).message || 'Something went wrong. Please try again.');
             }
         }
-
-        console.log(JSON.stringify({
-            fname: values["fname"],
-            lname: values["lname"]
-        }));
       };
 
+
+    const errorHide = () => {
+        setError(undefined);
+    }
+    
+    const errorShow = () => {
+
+    }
 
     // TODO: add form validations
     return (
         <>
+            <ErrorModal 
+                show={!!error}
+                header={"An Error occurred."}
+                description={error!}
+                onHide={errorHide}
+            />
             <Container className="form-container border">
                 {/* {!isLoading && <LoadingSpinner />} */}
                     <Form className="form" onSubmit={authSubmitHandler}>

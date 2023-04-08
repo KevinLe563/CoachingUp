@@ -42,7 +42,7 @@ function CustomModal(props: ModalProps) {
     );
 }
 
-function DetailsModal(props: Listing) {
+export function DetailsModal(props: Listing) {
     const [modalShow, setModalShow] = React.useState(false);
     const detailsHeading = "Details"
     const detailTitle = props.title
@@ -64,7 +64,7 @@ function DetailsModal(props: Listing) {
     )
 }
 
-function DeletionModal(props: Listing) {
+export function DeletionModal(props: Listing) {
     const [modalShow, setModalShow] = React.useState(false);
     const detailsHeading = "Are you sure?";
     const detailDescription = "Do you want to proceed? Please note that this action can't be undone.";
@@ -86,27 +86,16 @@ function DeletionModal(props: Listing) {
     )
 }
 
-function ErrorModal(props: boolean) {
-    const [modalShow, setModalShow] = React.useState(props);
+export function ErrorModal(props: ModalProps) {
+    const [modalShow, setModalShow] = React.useState(true);
     const detailsHeading = "An Error Occurred";
     const detailDescription = "An error occurred. Please try again.";
     const deleteButton = <Button variant="danger">Close</Button>;
     return (
         <>
-            {/* <Button variant="danger" onClick={() => setModalShow(true)}>
-                Delete
-            </Button> */}
-
             <CustomModal
-                show={modalShow}
-                onHide={() => setModalShow(false)}
-                header={detailsHeading}
-                description={detailDescription}    
-                alternateOption={deleteButton}
+                {...props}
             />
         </>
     )
 }
-
-
-export { DetailsModal, DeletionModal };

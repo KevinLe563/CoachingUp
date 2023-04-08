@@ -13,7 +13,7 @@ interface ModalProps {
     onHide: () => void,
 }
 
-function CustomModal(props: (ModalProps & Listing)) {
+function CustomModal(props: ModalProps) {
     return (
         <Modal
             {...props}
@@ -54,7 +54,6 @@ function DetailsModal(props: Listing) {
             </Button>
 
             <CustomModal
-                {...props}
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 header={detailsHeading}
@@ -77,7 +76,6 @@ function DeletionModal(props: Listing) {
             </Button>
 
             <CustomModal
-                {...props}
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 header={detailsHeading}
@@ -87,5 +85,28 @@ function DeletionModal(props: Listing) {
         </>
     )
 }
+
+function ErrorModal(props: boolean) {
+    const [modalShow, setModalShow] = React.useState(props);
+    const detailsHeading = "An Error Occurred";
+    const detailDescription = "An error occurred. Please try again.";
+    const deleteButton = <Button variant="danger">Close</Button>;
+    return (
+        <>
+            {/* <Button variant="danger" onClick={() => setModalShow(true)}>
+                Delete
+            </Button> */}
+
+            <CustomModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                header={detailsHeading}
+                description={detailDescription}    
+                alternateOption={deleteButton}
+            />
+        </>
+    )
+}
+
 
 export { DetailsModal, DeletionModal };

@@ -7,41 +7,50 @@ export const useHttpClient = () => {
     const initialVal : AbortController[] = [];
     const activeHttpRequests = useRef(initialVal);
 
-    const sendRequest = useCallback(async (url : string, method = 'GET', body = null, headers = {}) => {
+    const sendRequest = useCallback(async (url : string, method = 'GET', headers = {}, body : (string | null) = null) => {
         loading.setLoading();
         // abort controller can be used to cancel the request. Useful in case the user quickly switches away the tab
         const httpAbortCtrl = new AbortController();
         activeHttpRequests.current.push(httpAbortCtrl);
         try {
+            // for testing
+            // const sleep = (ms : number) => new Promise(r => setTimeout(r, ms));
+            // await sleep(5000);
+            //
             const response = await fetch(url, {
                 method,
-                body,
                 headers,
+                body,
                 signal: httpAbortCtrl.signal
             });
 
             const responseData = await response.json();
 
+            activeHttpRequests.current = activeHttpRequests.current.filter(reqCtrl => reqCtrl !== httpAbortCtrl);
+
             if (!response.ok) {
                 throw new Error(responseData.message);
             }
 
+            loading.setNotLoading();
             return responseData;
         } catch(err) {
             setError((err as Error).message || 'Something went wrong. Please try again.');
+            loading.setNotLoading();
+            throw err;
         }
-        loading.setNotLoading();
     }, []);
 
-    const resetError= () => {
+    const errorHandler= () => {
         setError(undefined);
     }
 
+    // abort the request on a rerender
     useEffect(() => {
         return () => {
          activeHttpRequests.current.forEach(abortCtrl => abortCtrl.abort());   
         };
     }, []);
 
-    return { sendRequest, error, resetError };
+    return { sendRequest, error, errorHandler };
 };

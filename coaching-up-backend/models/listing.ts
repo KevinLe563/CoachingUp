@@ -10,7 +10,6 @@ const listingSchema = new Schema({
     creationDate: { type: Date, required: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
-    coachId: { type: String, required: true },
     interactionMethod: { type: String, enum: ListingInteractionMethod, required: true },
     priceInfo: {
         price: { type: Number, required: true },

@@ -45,7 +45,10 @@ async function loginUser(req: any, res: any, next: NextFunction) {
         return next(new HttpError('Invalid username or password. Try again.', 401));
     }
 
-    res.json({message: 'Logged in!'});
+    res.json({
+        message: 'Logged in!',
+        user: existingUser.toObject({getters: true})
+    });
 };
 
 async function signupUser(req: any, res: any, next: NextFunction) {

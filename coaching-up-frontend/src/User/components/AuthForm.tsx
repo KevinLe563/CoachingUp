@@ -24,6 +24,7 @@ import { AuthContext } from "../../Shared/context/AuthContext";
 import { LoadingContext } from "../../Shared/context/LoadingContext";
 import { ErrorModal } from "../../Shared/components/UIComponents/Modal"; 
 import { useHttpClient } from "../../Shared/hooks/http-hook";
+import { FormProps } from "../../Types/FormTypes";
 
 const loginModeSwitchString = 'Don\'t have an account? Sign up';
 const signupModeSwitchString = 'Already have an account? Login';
@@ -32,10 +33,6 @@ const signupHeader = 'Signup';
 
 interface AuthProps {
     isLoginMode: boolean,
-}
-
-interface FormProps {
-    [key:string]: string
 }
 
 function AuthForm() {
@@ -62,7 +59,7 @@ function AuthForm() {
         event.preventDefault();
         if (isLoginMode) {
             try {
-                await sendRequest(
+                const responseData = await sendRequest(
                     'http://localhost:5000/api/user/login', 
                     'POST', 
                     {
@@ -75,13 +72,13 @@ function AuthForm() {
                         }
                     )
                 );
-                auth.login();
+                auth.login(responseData.user.id);
             } catch(err) {
                 console.log(err);
             }
         } else {
             try {
-                await sendRequest(
+                const responseData = await sendRequest(
                     'http://localhost:5000/api/user/signup', 
                     'POST', 
                     {
@@ -96,7 +93,7 @@ function AuthForm() {
                         }
                     )
                 );
-                auth.login();
+                auth.login(responseData.user.id);
             } catch(err) {
                 console.log(err);
             }

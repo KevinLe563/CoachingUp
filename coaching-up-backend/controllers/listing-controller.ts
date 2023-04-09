@@ -47,7 +47,6 @@ async function createListing(req: any, res: any, next: NextFunction) {
     const {
       title,
       description,
-      coachId,
       interactionMethod,
       price,
       timeInterval,
@@ -70,7 +69,6 @@ async function createListing(req: any, res: any, next: NextFunction) {
         creationDate: new Date(),
         title,
         description,
-        coachId,
         interactionMethod,
         priceInfo,
         userId

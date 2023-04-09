@@ -11,7 +11,6 @@ interface Listing {
     creationDate: Date,
     title: string,
     description: string,
-    coachId: string,
     interactionMethod: ListingInteractionMethod
     priceInfo: PriceInfo,
     userId: Types.ObjectId,

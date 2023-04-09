@@ -61,17 +61,45 @@ function AuthForm() {
     
     const authSubmitHandler = async (event : React.FormEvent) => {
         event.preventDefault();
+        loading.setLoading();
         if (isLoginMode) {
-            auth.login();
+            try {
+                setError(undefined);
+                // for testing
+                // const sleep = (ms : number) => new Promise(r => setTimeout(r, ms));
+                // await sleep(5000);
+                //
+                const response = await fetch('http://localhost:5000/api/user/login',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: values["email"],
+                        password: values["password"]
+                    })
+                });
+
+                const responseData = await response.json();
+                if (!response.ok) {
+                    throw new Error(responseData.message);
+                }
+                loading.setNotLoading();
+                auth.login();
+            } catch(err) {
+                console.log(err);
+                loading.setNotLoading();
+                setError((err as Error).message || 'Something went wrong. Please try again.');
+            }
         } else {
             try {
-                loading.setLoading();
                 setError(undefined);
                 // for testing
                 const sleep = (ms : number) => new Promise(r => setTimeout(r, ms));
                 // await sleep(5000);
                 //
-                const response = await fetch('http://localhost:5000/api/users/signup',
+                const response = await fetch('http://localhost:5000/api/user/signup',
                 {
                     method: 'POST',
                     headers: {
@@ -100,12 +128,8 @@ function AuthForm() {
       };
 
 
-    const errorHide = () => {
+    const errorHandler = () => {
         setError(undefined);
-    }
-    
-    const errorShow = () => {
-
     }
 
     // TODO: add form validations
@@ -115,7 +139,7 @@ function AuthForm() {
                 show={!!error}
                 header={"An Error occurred."}
                 description={error!}
-                onHide={errorHide}
+                onHide={errorHandler}
             />
             <Container className="form-container border">
                 {/* {!isLoading && <LoadingSpinner />} */}

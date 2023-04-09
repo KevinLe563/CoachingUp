@@ -31,7 +31,7 @@ app.use(cors());
 app.use('/api/listings', listingRouter);
 
 /* user routes */
-app.use('/api/users', userRouter);
+app.use('/api/user', userRouter);
 
 /* Default invalid url response */
 app.use((req, res, next) => {

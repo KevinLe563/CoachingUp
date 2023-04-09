@@ -34,9 +34,9 @@ function MainNavigation() {
                             {isCoach &&
                             <Nav.Link as={Link} to="/uid/listings/new">New Posting</Nav.Link>}
                             <NavDropdown title="Profile" id="navbarScrollingDropdown">
-                                <NavDropdown.Item hreef="">1</NavDropdown.Item>
-                                <NavDropdown.Item hreef="">1</NavDropdown.Item>
-                                <NavDropdown.Item hreef="">1</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/:uid/profile">Profile</NavDropdown.Item>
+                                <NavDropdown.Item href="">1</NavDropdown.Item>
+                                <NavDropdown.Item href="">1</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item onClick={auth.logout}>Sign Out</NavDropdown.Item>
                             </NavDropdown>

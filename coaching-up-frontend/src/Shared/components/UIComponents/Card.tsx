@@ -19,7 +19,7 @@ import { AccountType } from '../../../Types/EnumTypes';
 // TODO: Make card titles etc. a prop so we can use for 3 different things: applications received(coach), applications submitted(client), Postings created(coach)
 // TODO: make userinfo come from global context
 // TODO: make listings deactivatble and reactivatable
-function ListingCard(props: (Listing & User)) {
+export function ListingCard(props: (Listing & User)) {
     console.log(props);
     const isClient : boolean = props.accountType === AccountType.CLIENT;
     const isCoach : boolean = props.accountType === AccountType.COACH;
@@ -110,4 +110,18 @@ function ListingCard(props: (Listing & User)) {
     )
 }
 
-export { ListingCard };
+
+export function UserProfileCard(props : User) {
+    return (
+        <Card>
+            <Card.Header>
+                Personal Profile
+            </Card.Header>
+            <Row>
+                <Card.Body>
+                    {props.fname} {props.lname} {props.email}
+                </Card.Body>
+            </Row>
+        </Card>
+    )
+}

@@ -10,6 +10,7 @@ import LoadingOverlay from 'react-loading-overlay-ts';
 import logo from './logo.svg';
 import './App.css';
 import Users from './User/pages/User';
+import UserProfile from './User/pages/UserProfile';
 import Home from './Home/pages/home';
 import NewPosting from './User/pages/NewPosting';
 import UpdatePosting from './User/pages/UpdatePosting';
@@ -49,6 +50,7 @@ function App() {
         <Route path='/:userId/listings/new' element={<NewPosting />} />
         <Route path='/:uid/listings' element={<Users />} />
         <Route path='/:userId/listings/:listingId/edit' element={<UpdatePosting />} />
+        <Route path='/:uid/profile' element={<UserProfile />} />
         <Route path='/' element={<Home />} />
         <Route path='*' element={<Navigate to={'/'} />} />
       </Routes>

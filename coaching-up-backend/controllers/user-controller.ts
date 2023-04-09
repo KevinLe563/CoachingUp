@@ -8,9 +8,23 @@ import { AccountType } from "@frontend/Types/EnumTypes";
 import { User } from "@frontend/Types/UserTypes";
 import { HttpError } from "models/http-error";
 
-function getUserById(req: any, res: any, next: NextFunction) {
+async function getUserById(req: any, res: any, next: NextFunction) {
     // const userId = String(req.params.uid);
-    // TODO: this method may not make sense, we should only be getting the current logged in user not by the id
+    // TODO: this method may not make sense, we should only be getting the current logged in user not by the id. Store uid in the context later and use that instead
+    const userId = String(req.params.uid);
+    let user;
+    try {
+        user = await UserModel.findById(userId);
+    } catch(error) {
+        console.log(error);
+        return next(new HttpError('Something went wrong. Could not find User.', 500));
+    }
+    
+    if (!user) {
+        return next(new HttpError('Could not find user for provided id', 404));
+    }
+
+    return res.json({user: user.toObject({getters: true})});
 
 
     // res.json({user: user});

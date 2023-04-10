@@ -19,10 +19,10 @@ import { AccountType } from '../../../Types/EnumTypes';
 // TODO: Make card titles etc. a prop so we can use for 3 different things: applications received(coach), applications submitted(client), Postings created(coach)
 // TODO: make userinfo come from global context
 // TODO: make listings deactivatble and reactivatable
-export function ListingCard(props: (Listing & User)) {
+export function ListingCard(props: Listing) {
     console.log(props);
-    const isClient : boolean = props.accountType === AccountType.CLIENT;
-    const isCoach : boolean = props.accountType === AccountType.COACH;
+    const isClient : boolean = true;
+    // const isCoach : boolean = props.accountType === AccountType.COACH;
     // TODO: Append all enum tags into a string array to be mapped (make a function or something)
     const tags : string[] = [];
 
@@ -44,7 +44,7 @@ export function ListingCard(props: (Listing & User)) {
 
                         <tr>
                             <td>
-                                {props.creationDate.toDateString()}    
+                                {props.creationDate.toString()}    
                             </td>
                             <td>
                                 <>${props.priceInfo.price}/{props.priceInfo.interval}</>

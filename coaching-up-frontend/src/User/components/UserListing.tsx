@@ -6,7 +6,7 @@ import { Listing } from '../../Types/ListingTypes'
 import { ListingCard } from '../../Shared/components/UIComponents/Card';
 import { User } from '../../Types/UserTypes';
 
-function UserListing(props: (Listing & User)) {
+function UserListing(props: Listing) {
     return (
         <ListingCard {...props} />
     )

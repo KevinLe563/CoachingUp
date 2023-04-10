@@ -113,6 +113,7 @@ function PostingForm(props: PostingFormProps) {
             navigate('/user/listings')
         } catch(err) {
             console.log(err);
+            // console.log(values);
         }
       };
 
@@ -213,8 +214,10 @@ function PostingForm(props: PostingFormProps) {
                                     required
                                     name="priceInterval"
                                     onChange={onFormChange}
+                                    defaultValue={listingInfo ? listingInfo.priceInfo.interval : TimeIntervals.SESSION}
                                 >
                                     <>
+                                        <option></option>
                                         {GeneratePriceIntervalOptions()}
                                     </>
                                 </Form.Control>
@@ -234,6 +237,7 @@ function PostingForm(props: PostingFormProps) {
                                     defaultValue={listingInfo ? listingInfo.interactionMethod : ListingInteractionMethod.ONLINE}
                                 >
                                     <>
+                                        <option></option>
                                         {GenerateMethodOptions()}
                                     </>
                                 </Form.Control>

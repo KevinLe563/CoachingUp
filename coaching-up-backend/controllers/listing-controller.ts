@@ -35,7 +35,7 @@ async function getListingsByUserId(req: any, res: any, next: NextFunction) {
         return next(new HttpError('Something went wrong. Could not find listings for given user.', 500));
     }
 
-    return res.json({listing: listings.map(listing => listing.toObject({getters: true}))});
+    return res.json({listings: listings.map(listing => listing.toObject({getters: true}))});
 }
 
 async function createListing(req: any, res: any, next: NextFunction) {

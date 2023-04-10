@@ -14,8 +14,8 @@ export const useHttpClient = () => {
         activeHttpRequests.current.push(httpAbortCtrl);
         try {
             // for testing
-            // const sleep = (ms : number) => new Promise(r => setTimeout(r, ms));
-            // await sleep(5000);
+            const sleep = (ms : number) => new Promise(r => setTimeout(r, ms));
+            await sleep(3000);
             //
             const response = await fetch(url, {
                 method,

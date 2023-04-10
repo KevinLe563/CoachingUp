@@ -1,10 +1,9 @@
 import { Types } from 'mongoose';
 
 import { AccountType } from "./EnumTypes"
-import { Listing } from "./ListingTypes"
 
 interface User {
-    userId: string,
+    id: Types.ObjectId,
     fname: string,
     lname: string,
     email: string,

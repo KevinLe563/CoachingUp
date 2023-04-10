@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useContext} from "react";
 
-import { PostingForm, PostingFormProps } from "../components/PostingForm";
-import { CoachInfo } from "../../Types/CoachTypes";
+import { PostingForm } from "../components/PostingForm";
+import { PostingFormProps } from "../../Types/FormTypes";
+import { AuthContext } from "../../Shared/context/AuthContext";
 
 /* 
 Only coaches can create new postings
 */
 
-// TODO: fetch from backend
-const coachInfo : CoachInfo = {coachFirstName: "john", coachLastName: "wick"};
-
 function NewPosting() {
-    const postingFormProps : PostingFormProps = {coachInfo: coachInfo}
+    const auth = useContext(AuthContext);
+
+    const postingFormProps : PostingFormProps = {
+        userId: auth.userId!
+    }
 
     return (
         <>

@@ -9,12 +9,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 
-import { Listing } from '../../../Types/ListingTypes';
-import { DetailsModal, DeletionModal } from './Modal';
 import './Card.css';
-import logo from './dumbbell.jpg';
-import { User } from '../../../Types/UserTypes';
-import { AccountType } from '../../../Types/EnumTypes';
+import logo from '../dumbbell.jpg';
+import { Listing } from '../../../../Types/ListingTypes';
+import { DetailsModal, DeletionModal } from '../Modal';
 
 // TODO: Make card titles etc. a prop so we can use for 3 different things: applications received(coach), applications submitted(client), Postings created(coach)
 // TODO: make userinfo come from global context
@@ -38,7 +36,7 @@ export function ListingCard(props: Listing) {
                                 PRICE
                             </th>
                             <th>
-                                <>LISTING # {props.listingId}</>
+                                <>LISTING# {props.id}</>
                             </th>
                         </tr>
 
@@ -66,7 +64,7 @@ export function ListingCard(props: Listing) {
                         <Card.Img alt="listing image" src={logo}/>
                     </Col>
                     <Col sm={8}>
-                        <Link to={`/${props.userId}/listings/${props.listingId}/edit`}>
+                        <Link to={`/${props.userId}/listings/${props.id}/edit`}>
                             <Card.Title>
                                 {props.title}
                             </Card.Title>
@@ -86,7 +84,7 @@ export function ListingCard(props: Listing) {
                     </Col>
                     <Col sm={2}>
                     <div className="button-container">
-                        <Link to={`/${props.userId}/listings/${props.listingId}/edit`}>
+                        <Link to={`/${props.userId}/listings/${props.id}/edit`}>
                             <Button>Edit {isClient ? "Application" : "Posting"}</Button>
                         </Link>
                         
@@ -104,22 +102,6 @@ export function ListingCard(props: Listing) {
                     </Row>
                     </Container>
                     </>
-                </Card.Body>
-            </Row>
-        </Card>
-    )
-}
-
-
-export function UserProfileCard(props : User) {
-    return (
-        <Card>
-            <Card.Header>
-                Personal Profile
-            </Card.Header>
-            <Row>
-                <Card.Body>
-                    {props.fname} {props.lname} {props.email}
                 </Card.Body>
             </Row>
         </Card>

@@ -1,17 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { UserListing } from './UserListing';
 import './UserListings.css';
-
+import { UserListing } from '../components/UserListing';
 import { Listing } from '../../Types/ListingTypes';
-import { userInfo } from 'os';
-import { listings, user1 } from '../../Testing/Constants/Constants';
 import { useHttpClient } from '../../Shared/hooks/http-hook';
 import { AuthContext } from '../../Shared/context/AuthContext';
 import { getListingsByUserIdUrl } from '../../Shared/Constants/APIPaths';
 import { ErrorModal } from '../../Shared/components/UIComponents/Modal';
 
-function UserListings(props : Listing[]) {
+export function UserListings() {
     const { sendRequest, error, errorHandler } = useHttpClient();
     const [loadedListings, setLoadedListings] = useState<Listing[]>([]);
     const auth = useContext(AuthContext);
@@ -21,9 +18,7 @@ function UserListings(props : Listing[]) {
             try {
                 // TODO: put userId in the body or data for security
                 const url = `${getListingsByUserIdUrl}/${auth.userId}`;
-                console.log(url);
                 const responseData = await sendRequest(url);
-                console.log(responseData.listings)
                 setLoadedListings(responseData.listings);
             } catch(err) {
                 console.log(err);
@@ -40,7 +35,6 @@ function UserListings(props : Listing[]) {
             </h2>
         )
     }
-    console.log(loadedListings);
     return (
         <>
             <ErrorModal 
@@ -55,5 +49,3 @@ function UserListings(props : Listing[]) {
         </>
     )
 }
-
-export { UserListings };

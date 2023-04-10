@@ -15,7 +15,7 @@ export const useHttpClient = () => {
         try {
             // for testing
             const sleep = (ms : number) => new Promise(r => setTimeout(r, ms));
-            await sleep(3000);
+            await sleep(1000);
             //
             const response = await fetch(url, {
                 method,
@@ -46,11 +46,15 @@ export const useHttpClient = () => {
     }
 
     // abort the request on a rerender
-    useEffect(() => {
-        return () => {
-         activeHttpRequests.current.forEach(abortCtrl => abortCtrl.abort());   
-        };
-    }, []);
+    // useEffect(() => {
+    //     return () => {
+    //         try {
+    //             activeHttpRequests.current.forEach(abortCtrl => abortCtrl.abort());
+    //         } catch(err){
+    //             console.log(err)
+    //         };
+    //     };
+    // }, []);
 
     return { sendRequest, error, errorHandler };
 };

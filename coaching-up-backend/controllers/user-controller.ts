@@ -1,11 +1,7 @@
 import { NextFunction } from "express";
 import { validationResult } from "express-validator/src/validation-result";
-import {v4} from "uuid";
 
 import UserModel from "models/user";
-import { user1, users } from "@frontend/Testing/Constants/Constants";
-import { AccountType } from "@frontend/Types/EnumTypes";
-import { User } from "@frontend/Types/UserTypes";
 import { HttpError } from "models/http-error";
 
 async function getUserById(req: any, res: any, next: NextFunction) {

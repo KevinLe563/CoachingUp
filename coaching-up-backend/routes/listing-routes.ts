@@ -2,7 +2,6 @@ import express, { Express, Request, Response, Router } from 'express';
 import { check } from 'express-validator';
 
 import { getListingById, getListingsByUserId, createListing, updateListingById, deleteListingById } from 'controllers/listing-controller';
-import { user1, listings } from '@frontend/Testing/Constants/Constants';
 
 const listingRouter: Router = express.Router();
 

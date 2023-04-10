@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 
-import { UserProfileCard } from "../../Shared/components/UIComponents/Card";
+import { UserProfileCard } from "../../Shared/components/UIComponents/Cards/UserCard";
 import { User } from "../../Types/UserTypes";
 import { ErrorModal } from "../../Shared/components/UIComponents/Modal";
 import { LoadingContext } from "../../Shared/context/LoadingContext";

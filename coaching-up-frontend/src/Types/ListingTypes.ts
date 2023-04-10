@@ -7,7 +7,7 @@ import { ListingInteractionMethod } from './EnumTypes';
 import { PriceInfo } from './PriceTypes';
 
 interface Listing {
-    listingId: string,
+    id: Types.ObjectId,
     creationDate: Date,
     title: string,
     description: string,

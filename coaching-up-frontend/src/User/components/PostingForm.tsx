@@ -10,30 +10,13 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 
-import './Form.css';
-import { User } from "../../Types/UserTypes";
+import '../../Shared/styles/Form.css';
+import { PostingFormProps } from "../../Types/FormTypes";
 import { FormProps } from "../../Types/FormTypes";
-import { CoachInfo } from "../../Types/CoachTypes";
-import { Container, FormControl } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { ListingInteractionMethod, TimeIntervals } from "../../Types/EnumTypes";
-import { Listing } from "../../Types/ListingTypes";
 import { useHttpClient } from "../../Shared/hooks/http-hook";
-import { AuthContext } from "../../Shared/context/AuthContext";
 import { ErrorModal } from "../../Shared/components/UIComponents/Modal";
-
-interface PostingFormProps  {
-    coachInfo: CoachInfo;
-    listingInfo?: Listing;
-}
-
-// const schema = Yup.object().shape({
-//     title: Yup.string().required(),
-//     coachFirstName: Yup.string().required(),
-//     coachLastName: Yup.string().required(),
-//     description: Yup.string().required(),
-//     price: Yup.number().required(),
-//     terms: Yup.bool().required().oneOf([true], "Terms must be accepted"),
-// });
 
 function GenerateMethodOptions() {
     return (
@@ -71,10 +54,6 @@ function GenerateButtonValue() {
 }
 
 function PostingForm(props: PostingFormProps) {
-    const coachInfo : CoachInfo = props.coachInfo;
-    const listingInfo : Listing | undefined = props.listingInfo;
-
-    const auth = useContext(AuthContext);
     const navigate = useNavigate();
 
     const formData : FormProps = {};
@@ -106,7 +85,7 @@ function PostingForm(props: PostingFormProps) {
                         interactionMethod: values["interactionMethod"],
                         price: values["price"],
                         timeInterval: values["priceInterval"],
-                        userId: auth.userId
+                        userId: props.userId
                     }
                 )    
             )
@@ -117,7 +96,6 @@ function PostingForm(props: PostingFormProps) {
         }
       };
 
-    // console.log(listingInfo);
     return (
         <>
         <ErrorModal 
@@ -132,7 +110,7 @@ function PostingForm(props: PostingFormProps) {
                     <h1>New Posting</h1>
 
                     <Form.Group className="form-group">
-                        <Row>
+                        {/* <Row>
                             <Col>
                                 <Form.Label>Coach First Name</Form.Label>
                                 <Form.Control placeholder={`${coachInfo.coachFirstName}`} disabled />
@@ -141,7 +119,7 @@ function PostingForm(props: PostingFormProps) {
                                 <Form.Label>Coach Last Name</Form.Label>
                                 <Form.Control placeholder={`${coachInfo.coachLastName}`} disabled />
                             </Col>
-                        </Row>
+                        </Row> */}
                     </Form.Group>
 
                     <Form.Group className="form-group">
@@ -154,7 +132,7 @@ function PostingForm(props: PostingFormProps) {
                                 required
                                 name="title"
                                 onChange={onFormChange}
-                                defaultValue={listingInfo ? listingInfo.title : ""}
+                                // defaultValue={listingInfo ? listingInfo.title : ""}
                             />
                             </Col>
                         </Row>
@@ -169,7 +147,7 @@ function PostingForm(props: PostingFormProps) {
                                     onChange={onFormChange}
                                     as="textarea" 
                                     aria-label="Description"
-                                    defaultValue={listingInfo ? listingInfo.description : ""}
+                                    // defaultValue={listingInfo ? listingInfo.description : ""}
                                 />
                             </Col>
                         </Row>
@@ -214,7 +192,7 @@ function PostingForm(props: PostingFormProps) {
                                     required
                                     name="priceInterval"
                                     onChange={onFormChange}
-                                    defaultValue={listingInfo ? listingInfo.priceInfo.interval : TimeIntervals.SESSION}
+                                    // defaultValue={listingInfo ? listingInfo.priceInfo.interval : TimeIntervals.SESSION}
                                 >
                                     <>
                                         <option></option>
@@ -234,7 +212,7 @@ function PostingForm(props: PostingFormProps) {
                                     required
                                     name="interactionMethod"
                                     onChange={onFormChange}
-                                    defaultValue={listingInfo ? listingInfo.interactionMethod : ListingInteractionMethod.ONLINE}
+                                    // defaultValue={listingInfo ? listingInfo.interactionMethod : ListingInteractionMethod.ONLINE}
                                 >
                                     <>
                                         <option></option>
@@ -255,5 +233,4 @@ function PostingForm(props: PostingFormProps) {
     );
 }
 
-export type { PostingFormProps };
 export { PostingForm };

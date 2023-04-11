@@ -1,9 +1,22 @@
 import { useState, createContext, useCallback, useContext, ReactNode } from "react";
 
-export const LoadingContext = createContext({
+interface LoadingContextType {
+    isLoading: boolean,
+    setLoading: () => void,
+    setNotLoading: () => void,
+    loadingMessage: string,
+    setLoadingMessage: (newMessage: string) => void,
+    clearLoadingMessage: () => void
+}
+
+export const LoadingContext = createContext<LoadingContextType>({
     isLoading: true,
     setLoading: () => {},
-    setNotLoading: () => {}
+    setNotLoading: () => {},
+    // No longer used
+    loadingMessage: "Loading...",
+    setLoadingMessage: () => {},
+    clearLoadingMessage: () => {},
 });
 
 // export function LoadingContextProvider(children : ReactNode) {

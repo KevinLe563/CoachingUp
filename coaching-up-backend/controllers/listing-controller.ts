@@ -49,10 +49,10 @@ async function createListing(req: any, res: any, next: NextFunction) {
       description,
       interactionMethod,
       price,
-      timeInterval,
+      priceInterval,
       userId,
     } = req.body;
-    const priceInfo : PriceInfo = {price, interval: timeInterval};
+    const priceInfo : PriceInfo = {price, interval: priceInterval};
 
     let user;
     try {

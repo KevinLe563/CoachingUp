@@ -11,10 +11,10 @@ enum AccountType {
     CLIENT = 'Client',
 }
 
-enum TimeIntervals {
+enum PriceIntervals {
     SESSION = 'Session',
     MONTH = 'Month',
     YEAR = 'Year',
 }
 
-export { ListingInteractionMethod, TimeIntervals, AccountType };
+export { ListingInteractionMethod, PriceIntervals, AccountType };

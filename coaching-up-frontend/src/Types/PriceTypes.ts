@@ -1,8 +1,8 @@
-import { TimeIntervals } from "./EnumTypes";
+import { PriceIntervals } from "./EnumTypes";
 
 interface PriceInfo {
     price: Number,
-    interval: TimeIntervals,
+    interval: PriceIntervals,
 }
 
 export type { PriceInfo };

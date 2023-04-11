@@ -6,5 +6,9 @@ export interface FormProps {
 
 export interface PostingFormProps {
     userId: string,
-    Listing?: Listing
+    listing?: Listing
+}
+
+export interface DeleteProps {
+    onDelete: (id: string) => void
 }

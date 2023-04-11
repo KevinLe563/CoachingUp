@@ -11,23 +11,30 @@ import Table from 'react-bootstrap/Table';
 
 import './Card.css';
 import logo from '../dumbbell.jpg';
+import { DeleteProps } from '../../../../Types/FormTypes';
 import { Listing } from '../../../../Types/ListingTypes';
 import { DetailsModal, DeletionModal } from '../Modal';
+
+function createTags(props: Listing) {
+    const tags : string[] = [];
+    tags.push(props.interactionMethod);
+    return tags;
+}
 
 // TODO: Make card titles etc. a prop so we can use for 3 different things: applications received(coach), applications submitted(client), Postings created(coach)
 // TODO: make userinfo come from global context
 // TODO: make listings deactivatble and reactivatable
-export function ListingCard(props: Listing) {
-    console.log(props);
+export function ListingCard(props: Listing & DeleteProps ) {
     const isClient : boolean = true;
     // const isCoach : boolean = props.accountType === AccountType.COACH;
     // TODO: Append all enum tags into a string array to be mapped (make a function or something)
-    const tags : string[] = [];
+    const tags = createTags(props);
 
     return (
         <Card>
             <Card.Header>
                 <Table bordered={false}>
+                    {/* <tbody className="table-wrapper"> */}
                         <tr>
                             <th>
                                 {isClient ? "SUBMITTED AT" : "POSTING CREATED"}
@@ -53,6 +60,7 @@ export function ListingCard(props: Listing) {
                                 
                             </td>
                         </tr>
+                    {/* </tbody> */}
                 </Table>
             </Card.Header>
             <Row>

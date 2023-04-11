@@ -18,32 +18,37 @@ import Auth from './User/pages/Auth';
 import { MainNavigation } from './Shared/components/Navigation/MainNavigation';
 import { AuthContext } from './Shared/context/AuthContext';
 import { LoadingContext } from './Shared/context/LoadingContext';
+import { clear } from 'console';
 
 function App() {
   // refactor this to be in the context file
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userId, setUserId] = useState<string>();
-  
+  const [userId, setUserId] = useState<string>(); 
   // cache app function between re-renders based on dependancies to remove infinite loops
   const login = useCallback((uid : string) => {
     setUserId(uid);
     setIsLoggedIn(true);
   }, []);
-
   const logout = useCallback(() => {
     setUserId(undefined);
     setIsLoggedIn(false);
   }, []);
 
+
   const [isLoading, setIsLoading] = useState(false);
-  
+  const [loadingMessage, setLoadingMessage] = useState("Loading...");
   // cache app function between re-renders based on dependancies to remove infinite loops
   const Loading = useCallback(() => {
     setIsLoading(true);
   }, []);
-
   const isNotLoading = useCallback(() => {
     setIsLoading(false);
+  }, []);
+  const setNewLoadingMessage = useCallback((newLoadingMessage : string) => {
+    setLoadingMessage(newLoadingMessage);
+  }, []);
+  const clearLoadingMessage = useCallback(() => {
+    setLoadingMessage("Loading...");
   }, []);
 
   let routes;
@@ -69,8 +74,15 @@ function App() {
   }
 
   return (
-    <LoadingContext.Provider value={{isLoading: isLoading, setLoading: Loading, setNotLoading: isNotLoading }}>
-      <LoadingOverlay className={`loading-overlay-${isLoading ? "active" : "inactive"}`} active={isLoading} spinner text="Logging you in...">
+    <LoadingContext.Provider value={{
+      isLoading: isLoading, 
+      setLoading: Loading, 
+      setNotLoading: isNotLoading, 
+      loadingMessage: loadingMessage,
+      setLoadingMessage: setNewLoadingMessage,
+      clearLoadingMessage: clearLoadingMessage
+    }}>
+      <LoadingOverlay className={`loading-overlay-${isLoading ? "active" : "inactive"}`} active={isLoading} spinner text={loadingMessage} >
         <AuthContext.Provider value={{userId: userId, isLoggedIn: isLoggedIn, login: login, logout: logout}}>
           <Router>
             {isLoggedIn && <MainNavigation />}

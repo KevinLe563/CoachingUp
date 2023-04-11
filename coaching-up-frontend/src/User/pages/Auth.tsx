@@ -13,6 +13,7 @@ import Card from 'react-bootstrap/Card';
 import { Container, FormControl } from "react-bootstrap";
 
 import './Auth.css';
+import { loginUrl, signupUrl } from "../../Shared/Constants/APIPaths";
 import { User } from "../../Types/UserTypes";
 import { CoachInfo } from "../../Types/CoachTypes";
 import { ListingInteractionMethod } from "../../Types/EnumTypes";
@@ -55,7 +56,7 @@ export default function Auth() {
         if (isLoginMode) {
             try {
                 const responseData = await sendRequest(
-                    'http://localhost:5000/api/user/login', 
+                    loginUrl, 
                     'POST', 
                     {
                         'Content-Type': 'application/json'
@@ -74,7 +75,7 @@ export default function Auth() {
         } else {
             try {
                 const responseData = await sendRequest(
-                    'http://localhost:5000/api/user/signup', 
+                    signupUrl, 
                     'POST', 
                     {
                         'Content-Type': 'application/json'

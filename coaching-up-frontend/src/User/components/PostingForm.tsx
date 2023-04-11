@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Formik } from 'formik';
 import LoadingOverlay from 'react-loading-overlay-ts';
 import * as Yup from 'yup';
@@ -11,10 +11,12 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 
 import '../../Shared/styles/Form.css';
+import { Listing } from "../../Types/ListingTypes";
+import { createListingUrl, readUpdateDeleteListingByIdUrl } from "../../Shared/Constants/APIPaths";
 import { PostingFormProps } from "../../Types/FormTypes";
 import { FormProps } from "../../Types/FormTypes";
 import { Container } from "react-bootstrap";
-import { ListingInteractionMethod, TimeIntervals } from "../../Types/EnumTypes";
+import { ListingInteractionMethod, PriceIntervals } from "../../Types/EnumTypes";
 import { useHttpClient } from "../../Shared/hooks/http-hook";
 import { ErrorModal } from "../../Shared/components/UIComponents/Modal";
 
@@ -32,31 +34,33 @@ function GenerateMethodOptions() {
 
 function GeneratePriceIntervalOptions() {
     return (
-        (Object.keys(TimeIntervals) as Array<keyof typeof TimeIntervals>).map((key) => {
+        (Object.keys(PriceIntervals) as Array<keyof typeof PriceIntervals>).map((key) => {
             return (
                 <option>
-                    {TimeIntervals[key]}
+                    {PriceIntervals[key]}
                 </option>
             )
         })
     );
 }
 
-function GenerateButtonValue() {
-    const location = useLocation();
-    const path = location.pathname.toString().split('/');
-    const func = path[path.length-1];
-    if (func === "edit") {
-        return "Edit";
-    } else {
-        return "Create";
+function listingToFormProps(listing? : Listing) {
+    const formData : FormProps = {};
+    if (listing) {
+        formData["title"] = listing.title;
+        formData["description"] = listing.description;
+        formData["interactionMethod"] = listing.interactionMethod;
+        formData["price"] = listing.priceInfo.price.toString();
+        formData["priceInterval"] = listing.priceInfo.interval;
     }
+
+    return formData;
 }
 
 function PostingForm(props: PostingFormProps) {
     const navigate = useNavigate();
 
-    const formData : FormProps = {};
+    const formData : FormProps = listingToFormProps(props.listing);
     const [values, setValues] = useState(formData);
     const onFormChange = (event : React.ChangeEvent<HTMLInputElement>) => {
         const name = event.target.name;
@@ -72,9 +76,20 @@ function PostingForm(props: PostingFormProps) {
         event.preventDefault();
         try {
             // TODO: FIGURE OUT HOW TO REMOVE THE SCROLL TO BOTTOM THING
+            let url;
+            let operation;
+            if (props.listing) {
+                url = `${readUpdateDeleteListingByIdUrl}/${props.listing.id.toString()}`;
+                operation = 'PATCH';
+            } else {
+                url = createListingUrl;
+                operation = 'POST';
+            }
+
+
             await sendRequest(
-                'http://localhost:5000/api/listings', 
-                'POST',
+                url, 
+                operation,
                 {
                     'Content-Type': 'application/json'
                 }, 
@@ -84,7 +99,7 @@ function PostingForm(props: PostingFormProps) {
                         description: values["description"],
                         interactionMethod: values["interactionMethod"],
                         price: values["price"],
-                        timeInterval: values["priceInterval"],
+                        priceInterval: values["priceInterval"],
                         userId: props.userId
                     }
                 )    
@@ -132,7 +147,7 @@ function PostingForm(props: PostingFormProps) {
                                 required
                                 name="title"
                                 onChange={onFormChange}
-                                // defaultValue={listingInfo ? listingInfo.title : ""}
+                                defaultValue={props.listing ? props.listing.title : ""}
                             />
                             </Col>
                         </Row>
@@ -147,7 +162,7 @@ function PostingForm(props: PostingFormProps) {
                                     onChange={onFormChange}
                                     as="textarea" 
                                     aria-label="Description"
-                                    // defaultValue={listingInfo ? listingInfo.description : ""}
+                                    defaultValue={props.listing ? props.listing.description : ""}
                                 />
                             </Col>
                         </Row>
@@ -178,7 +193,7 @@ function PostingForm(props: PostingFormProps) {
                                     type="number"
                                     min={0}
                                     onChange={onFormChange}
-                                    // defaultValue={listingInfo ? listingInfo.description : ""}
+                                    defaultValue={props.listing ? props.listing.priceInfo.price.toString() : ""}
                                 />
                             </Col>
 
@@ -192,7 +207,7 @@ function PostingForm(props: PostingFormProps) {
                                     required
                                     name="priceInterval"
                                     onChange={onFormChange}
-                                    // defaultValue={listingInfo ? listingInfo.priceInfo.interval : TimeIntervals.SESSION}
+                                    defaultValue={props.listing ? props.listing.priceInfo.interval : ""}
                                 >
                                     <>
                                         <option></option>
@@ -212,7 +227,7 @@ function PostingForm(props: PostingFormProps) {
                                     required
                                     name="interactionMethod"
                                     onChange={onFormChange}
-                                    // defaultValue={listingInfo ? listingInfo.interactionMethod : ListingInteractionMethod.ONLINE}
+                                    defaultValue={props.listing ? props.listing.interactionMethod : ""}
                                 >
                                     <>
                                         <option></option>
@@ -224,7 +239,7 @@ function PostingForm(props: PostingFormProps) {
                     </Form.Group>
 
                     <Form.Group className="form-group">
-                        <button type="submit" className="btn btn-primary">{GenerateButtonValue()}</button>
+                        <button type="submit" className="btn btn-primary">{props.listing ? "Submit" : "Create"}</button>
                     </Form.Group>
                 </Form>
             </Container>

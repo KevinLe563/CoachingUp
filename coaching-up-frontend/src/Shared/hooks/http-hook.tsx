@@ -8,6 +8,9 @@ export const useHttpClient = () => {
     const activeHttpRequests = useRef(initialVal);
 
     const sendRequest = useCallback(async (url : string, method = 'GET', headers = {}, body : (string | null) = null) => {
+        // if (loadingMessage) {
+        //     loading.setLoadingMessage(loadingMessage);
+        // }
         loading.setLoading();
         // abort controller can be used to cancel the request. Useful in case the user quickly switches away the tab
         const httpAbortCtrl = new AbortController();
@@ -33,10 +36,12 @@ export const useHttpClient = () => {
             }
 
             loading.setNotLoading();
+            loading.clearLoadingMessage();
             return responseData;
         } catch(err) {
             setError((err as Error).message || 'Something went wrong. Please try again.');
             loading.setNotLoading();
+            loading.clearLoadingMessage();
             throw err;
         }
     }, []);

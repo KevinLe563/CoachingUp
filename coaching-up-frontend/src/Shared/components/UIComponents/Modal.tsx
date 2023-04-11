@@ -1,7 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+
+import { DeleteProps } from "../../../Types/FormTypes";
+import { readUpdateDeleteListingByIdUrl } from "../../Constants/APIPaths";
+import { useHttpClient } from "../../hooks/http-hook";
 import { Listing } from "../../../Types/ListingTypes";
 
 interface ModalProps {
@@ -64,17 +69,41 @@ export function DetailsModal(props: Listing) {
     )
 }
 
-export function DeletionModal(props: Listing) {
+export function DeletionModal(props: Listing & DeleteProps) {
     const [modalShow, setModalShow] = React.useState(false);
+    const { sendRequest, error, errorHandler } = useHttpClient();
+    const navigate = useNavigate()
+
+    const deleteSubmitHandler = async () => {
+        setModalShow(false);
+        const url = `${readUpdateDeleteListingByIdUrl}/${props.id}`;
+        try {
+            await sendRequest(
+                url,
+                'DELETE'
+            );
+            props.onDelete(props.id.toString());
+        } catch(err) {
+            console.log(err);
+        }
+        navigate('/user/listings');
+    }
+
     const detailsHeading = "Are you sure?";
     const detailDescription = "Do you want to proceed? Please note that this action can't be undone.";
-    const deleteButton = <Button variant="danger">Delete</Button>;
+    const deleteButton = <Button variant="danger" onClick={deleteSubmitHandler} >Delete</Button>;
+    
     return (
         <>
+            <ErrorModal 
+                show={!!error}
+                header={"An Error occurred."}
+                description={error!}
+                onHide={errorHandler}
+            />
             <Button variant="danger" onClick={() => setModalShow(true)}>
                 Delete
             </Button>
-
             <CustomModal
                 show={modalShow}
                 onHide={() => setModalShow(false)}
@@ -87,7 +116,6 @@ export function DeletionModal(props: Listing) {
 }
 
 export function ErrorModal(props: ModalProps) {
-    const [modalShow, setModalShow] = React.useState(true);
     const detailsHeading = "An Error Occurred";
     const detailDescription = "An error occurred. Please try again.";
     const deleteButton = <Button variant="danger">Close</Button>;

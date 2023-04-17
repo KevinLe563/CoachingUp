@@ -171,11 +171,13 @@ function PostingForm(props: PostingFormProps) {
                     <Form.Group className="form-group">
                         <Row>
                             <Col>
-                                <Form.Label>Upload Photo</Form.Label>
+                                <Form.Label>Upload Listing Photo</Form.Label>
                                 <Form.Control 
                                     type="file"
                                     name="file"
-                                    // defaultValue={image?}
+                                    accept=".png,.jpg,.jpeg"
+                                    onChange={onFormChange}
+                                    // defaultValue={props.listing ? props.listing.ima}
                                 />
                             </Col>
                         </Row>

@@ -7,7 +7,7 @@ export const useHttpClient = () => {
     const initialVal : AbortController[] = [];
     const activeHttpRequests = useRef(initialVal);
 
-    const sendRequest = useCallback(async (url : string, method = 'GET', headers = {}, body : (string | null) = null) => {
+    const sendRequest = useCallback(async (url : string, method = 'GET', headers = {}, body : (FormData | string | null) = null) => {
         // if (loadingMessage) {
         //     loading.setLoadingMessage(loadingMessage);
         // }

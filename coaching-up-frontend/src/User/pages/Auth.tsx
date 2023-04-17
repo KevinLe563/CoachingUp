@@ -39,14 +39,17 @@ export default function Auth() {
         setIsLoginMode(prevMode => !prevMode);
     };
 
-    const formData : FormProps = {};
-    const [values, setValues] = useState(formData);
+    const [formData, setValues] = useState(new FormData());
     const onFormChange = (event : React.ChangeEvent<HTMLInputElement>) => {
         const name = event.target.name;
-        const value = event.target.value;
-        values[name] = value;
-        setValues(values);
-        // console.log(name, value);
+        if (event.target.files) {
+            const file = event.target.files[0];
+            formData.set(name, file);
+        } else {
+            const value = event.target.value;
+            formData.set(name, value);
+        }
+        setValues(formData);
     }
 
     const { sendRequest, error, errorHandler } = useHttpClient();
@@ -60,13 +63,11 @@ export default function Auth() {
                     'POST', 
                     {
                         'Content-Type': 'application/json'
-                    }, 
-                    JSON.stringify(
-                        {
-                            email: values["email"],
-                            password: values["password"]
-                        }
-                    )
+                    },
+                    JSON.stringify({
+                        email: formData.get('email'),
+                        password: formData.get('password')
+                    })
                 );
                 auth.login(responseData.user.id);
             } catch(err) {
@@ -76,18 +77,9 @@ export default function Auth() {
             try {
                 const responseData = await sendRequest(
                     signupUrl, 
-                    'POST', 
-                    {
-                        'Content-Type': 'application/json'
-                    }, 
-                    JSON.stringify(
-                        {
-                            fname: values["fname"],
-                            lname: values["lname"],
-                            email: values["email"],
-                            password: values["password"]
-                        }
-                    )
+                    'POST',
+                    {},
+                    formData
                 );
                 auth.login(responseData.user.id);
             } catch(err) {
@@ -124,6 +116,20 @@ export default function Auth() {
                             <Form.Control required name="email" onChange={onFormChange} />
                             <Form.Label>Password</Form.Label>
                             <Form.Control required name="password" onChange={onFormChange} />
+                        
+                            {!isLoginMode &&
+                                <>
+                                    <Form.Label>Upload Profile Photo</Form.Label>
+                                    <Form.Control 
+                                        type="file"
+                                        name="image"
+                                        id="image"
+                                        accept=".png,.jpg,.jpeg"
+                                        onChange={onFormChange}
+                                        // defaultValue={props.listing ? props.listing.ima}
+                                    />
+                                </>
+                            }
                         </Form.Group>
                         <Form.Group className="form-group">
                             <button type="submit" className="btn btn-primary">{isLoginMode ? 'Login' : 'Signup'}</button>
